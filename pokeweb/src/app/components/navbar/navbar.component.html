@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"><div class="col-md-4 align-middle col-sm-6">
         <div class="title-dash text-center">Pokemon</div>
@@ -17,21 +17,9 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Pokédex</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="/dashboard" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Help
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/dashboard">How to Play</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/dashboard">Support</a></li>
-            </ul>
-          </li>
+          
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn-search" type="submit">Search</button>
-        </form>
+        <app-search-bar></app-search-bar>
       </div>
     </div>
   </nav>

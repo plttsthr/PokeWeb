@@ -5,9 +5,7 @@
 @import url('https://fonts.cdnfonts.com/css/proggy-clean');
 
 
-html, body {
-    height: 100%;
-  }
+
 
 *{
 
@@ -46,13 +44,14 @@ h1{
 }
 
 
+
 .login{
     background-color: #d6cbb6;
     border: 10px solid #000;
 }
 
 body{
-    background-color: #99969a;
+    background-color: #bdbdbd;
 
 }
 
@@ -108,5 +107,25 @@ body{
     border-radius: 0px;
     background-color: #3285d3;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.btn-home{
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #d34a32;
+}
+
+.btn-home:hover{
+
+    border-radius: 5px;
+    background-color: #3285d3;
+}
+
+
+
+.sprites-container {
+    display: flex;
+    justify-content: center; /* Center the images horizontally */
+    gap: 10px; /* Add spacing between images */
+  }
+  
+  

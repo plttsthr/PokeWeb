@@ -1,0 +1,8 @@
+
+<div *ngIf="pokemonSprites.length > 0">
+
+    <img *ngFor="let spriteUrl of pokemonSprites" [src]="spriteUrl" alt="Pokemon Sprite">
+</div>
+  
+<span>No. {{pokemonId}}</span>
+<h4 *ngIf="pokemonData">{{pokemonData.name | titlecase}}</h4>

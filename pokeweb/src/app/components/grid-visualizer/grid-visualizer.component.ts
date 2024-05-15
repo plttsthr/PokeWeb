@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
 import { PokemonAPIService } from '../../services/pokemon-api.service';
 import { resultArray } from '../../interfaces/pokemonAPI';
 import { Pokemon } from '../../interfaces/pokemonModel';
+import { SearchService } from '../../services/search-bar.service';
 
 @Component({
   selector: 'app-grid-visualizer',
@@ -11,26 +11,42 @@ import { Pokemon } from '../../interfaces/pokemonModel';
 })
 export class GridVisualizerComponent implements OnInit{
 
-  constructor(private pokemonservice:PokemonAPIService){}
+  constructor(private pokemonservice: PokemonAPIService, private searchService: SearchService) {}
 
-  pokemonList:resultArray[] = [];
-  chosenPokemon:Pokemon|undefined;
-  page:number = 1;
+  pokemonList: resultArray[] = [];
   loading: boolean = false;
-  details: boolean = false;
+  filteredPokemonList: resultArray[] = [];
+
 
   ngOnInit(): void {
     this.loadFullList();
-    
+    this.searchService.query.subscribe(query => {
+      this.filterPokemonList(query);
+    });
   }
 
-  async loadFullList(){
-    if(this.loading) return;
+  async loadFullList(): Promise<void> {
+    if (this.loading) return;
     this.loading = true;
-    this.page++;
-    this.loading = false;
-    this.pokemonList = await this.pokemonservice.getByPage();
-    console.log(this.pokemonList);
+    try {
+      this.pokemonList = await this.pokemonservice.getByPage();
+      this.filteredPokemonList = [...this.pokemonList]; // Initially show the full list
+    } catch (error) {
+      console.error('Error loading Pokémon list:', error);
+    } finally {
+      this.loading = false;
+    }
   }
-  
+
+  filterPokemonList(query: string): void {
+    if (!query.trim()) {
+      this.filteredPokemonList = [...this.pokemonList]; // If query is empty, show full list
+    } else {
+      this.filteredPokemonList = this.pokemonList.filter(pokemon => 
+        pokemon.name.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+  }
+
+
 }

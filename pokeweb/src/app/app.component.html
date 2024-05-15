@@ -1,4 +1,16 @@
-<header>
+
+  <header style="margin-bottom: 0;">
   <app-navbar></app-navbar>
 </header>
-<router-outlet></router-outlet>
+
+<router-outlet style="margin-top: 0;"></router-outlet>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the height of the navbar
+    var navbarHeight = document.getElementById('navbar').offsetHeight;
+    // Set the top margin of the router-outlet to the navbar height
+    document.querySelector('router-outlet').style.marginTop = navbarHeight + 'px';
+  });
+</script>
+
