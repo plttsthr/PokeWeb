@@ -29,7 +29,7 @@ export class GridVisualizerComponent implements OnInit{
     this.loading = true;
     try {
       this.pokemonList = await this.pokemonservice.getByPage();
-      this.filteredPokemonList = [...this.pokemonList]; // Initially show the full list
+      this.filteredPokemonList = [...this.pokemonList];
     } catch (error) {
       console.error('Error loading Pokémon list:', error);
     } finally {

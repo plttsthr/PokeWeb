@@ -32,12 +32,12 @@ export class PokemonAPIService {
     return resultJson.results;
   }
 
-  // async getPokemonDescription(id: string | number):Promise<string>{
-  //   const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-  //   const resJson = await res.json();
-  //   const texto = resJson.flavor_text_entries.find((texto:any) =>  texto.language.name === "es")
-  //   return texto ? texto.flavor_text : "No se econtró descripción en español";
-  // }
+  async getPokemonDescription(id: string | number):Promise<string>{
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+    const resJson = await res.json();
+    const text = resJson.flavor_text_entries.find((text:any) =>  text.language.name === "es")
+    return text ? text.flavor_text : "No se econtró descripción en español";
+  }
 
 }
 

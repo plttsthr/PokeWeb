@@ -56,19 +56,53 @@ body{
 }
 
 .navbar{
-    background-color: #83dfc5;
+    background-color: #46cbb0;
 
 }
 
 .spacer {
-    flex-grow: .3; 
+    flex-grow: .2; 
 }
 
 
+/* Styles for the small Pokemon image */
+.pokemon-image-small {
+    height: 90px; /* Adjust the width as needed */
+   
+    margin-right: 10px; /* Add space between the image and details */
+  }
+  
+  /* Styles for the Pokemon details */
+  .pokemon-details {
+    width: 100%;
+    text-align: left; /* Align text to the left */
+  }
 
-.pokemon-list{
-    background-color: #d34a32;
-}
+  .pokemon-image-pokedex {
+    width: 300px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    align-self: center;
+
+  }
+  
+  /* Styles for the larger Pokemon image */
+  .pokemon-image {
+    width: 100%; /* Ensure the image fills its container */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+
+  .selected-card{
+    background-color: #f3c304;
+  }
+
+  .right-section{
+
+    background-image: url("./assets/pokedex.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    
+  }
 
 .login-form{
 
@@ -133,4 +167,19 @@ body{
     gap: 10px; /* Add spacing between images */
   }
   
+  
+.card-body{
+    background-color: #d2d2d2;
+    height: 60px;
+}
+
+.card-body:focus{
+    background-color: #46cbb0;
+    color: indianred;
+}
+
+.pokemon-image-small {
+    width: 50px; /* Adjust the width as needed */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+  }
   
