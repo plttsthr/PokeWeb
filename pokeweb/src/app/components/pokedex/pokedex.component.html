@@ -5,7 +5,7 @@
         <div class="card border border-black  m-4 py-2 overflow-auto"  style="max-height: 500px;"    >
           <div *ngFor="let pokemon of pokemonWithSprites">
 
-            <div class="card-body border border-black m-1 d-flex align-items-center justify-content-center" (click)="selectPokemon(pokemon)">
+            <div class="card-body border border-black m-1 d-flex align-items-center justify-content-center" (click)="selectPokemon(pokemon)" [class.selected]="selectedPokemon === pokemon">
                 <img *ngIf="pokemon.spriteUrl" [src]="pokemon.spriteUrl" alt="Pokemon Sprite" class="pokemon-image-small">
 
                 <div class="pokemon-details d-flex ">
@@ -19,21 +19,31 @@
               
 
           </div>
-          <!-- Placeholder for empty list -->
-          <div *ngIf="pokemonWithSprites.length === 0" class="card-body d-flex">
-            <span class="card-text">No Pokémon available</span>
-          </div>
+          
         </div>
       </div>
   
       <!-- Right column for Pokémon image -->
       <div class="col-md-7">
-        <div class="card border border-black text-center m-2 right-section" style="height: 500px;">
-          <img *ngIf="selectedPokemon && selectedPokemon.spriteUrl" [src]="selectedPokemon.spriteUrl" alt="Selected Pokemon Sprite" class="pokemon-image-pokedex">
-          <img *ngIf="!selectedPokemon" src="../../../assets/placeholder-image.jpg" alt="Placeholder Image" class="pokemon-image-pokedex">
-       
+        <!-- Title Box -->
+        <div class="card border border-black text-center  align-items-center m-2" style="height: 50px;">
+            <h3>{{ selectedPokemon ? selectedPokemon.name : '' }}</h3>
         </div>
-      </div>
+    
+        <!-- Pokémon Sprite Box -->
+        <div class="card border border-black text-center m-2 right-section" style="height: 250px;">
+            <img *ngIf="selectedPokemon && selectedPokemon.spriteUrl" [src]="selectedPokemon.spriteUrl" alt="Selected Pokemon Sprite" class="pokemon-image-pokedex">
+            <img *ngIf="!selectedPokemon" src="../../../assets/placeholder-image.jpg" alt="Placeholder Image" class="pokemon-image-pokedex">
+        </div>
+    
+        <!-- Description Box -->
+        <div class="card border border-black text-center m-2" style="height: 200px;">
+            <h3>Description</h3>
+            <!-- Add your description content here -->
+            <!-- <p>{{ selectedPokemon.description }}</p> -->
+        </div>
+    </div>
+    
     </div>
   </div>
   

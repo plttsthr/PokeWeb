@@ -79,7 +79,7 @@ body{
   }
 
   .pokemon-image-pokedex {
-    width: 300px; /* Adjust the width as needed */
+    width: 200px; /* Adjust the width as needed */
     height: auto; /* Maintain aspect ratio */
     align-self: center;
 
@@ -183,3 +183,28 @@ body{
     height: auto; /* Automatically adjust height to maintain aspect ratio */
   }
   
+
+  .overflow-auto::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+
+}
+
+.overflow-auto::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+    border: 1px solid #000000;
+    border-radius: 2px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+    background: #0dad90; /* Thumb color */
+    border: 1px solid #000000;
+    border-radius: 2px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover {
+    background: #2bb9ad; /* Thumb color on hover */
+}
+
+.selected {
+    background-color: #2bcaaa; /* Change this to the desired color */
+}
