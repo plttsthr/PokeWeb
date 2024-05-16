@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddPokemonsPokedexService } from '../../services/add-pokemons-pokedex.service';
 import { PokemonInfo, Pokemon } from '../../interfaces/pokemonModel';
 import { PokemonAPIService } from '../../services/pokemon-api.service';
+import { SearchService } from '../../services/search-bar.service';
 
 @Component({
   selector: 'app-pokedex',
@@ -12,14 +13,18 @@ export class PokedexComponent implements OnInit {
   addedPokemons: PokemonInfo[] = [];
   pokemonWithSprites: (PokemonInfo & { spriteUrl?: string })[] = [];
   selectedPokemon: PokemonInfo | undefined;
+  selectedPokemonDetails: { height: number; weight: number; types: string[] } = { height: 0, weight: 0, types: [] };
+  selectedPokemonDescription: string = '';
 
   constructor(
     private pokedexService: AddPokemonsPokedexService,
-    private pokemonService: PokemonAPIService
-  ) {}
+    private pokemonService: PokemonAPIService,
+    private searchService: SearchService)
+  {}
 
   ngOnInit(): void {
     this.loadAddedPokemons();
+    
   }
 
   loadAddedPokemons(): void {
@@ -31,16 +36,13 @@ export class PokedexComponent implements OnInit {
 
   async loadSpritesForPokemons(): Promise<void> {
     this.pokemonWithSprites = []; // Clear existing data
-    
+
     // Fill the array with dummy data to display 5 cards if there are fewer than 5 Pokémon
-    for (let i = 0; i < Math.max(5, this.addedPokemons.length); i++) {
+    for (let i = 0; i < Math.max(7, this.addedPokemons.length); i++) {
       const pokemon = this.addedPokemons[i];
       const spriteUrl = pokemon ? (await this.getSpriteUrl(pokemon)) : undefined;
       this.pokemonWithSprites.push({ ...pokemon, spriteUrl });
     }
-    
-    // Set the first Pokémon as the default selected Pokémon
-    this.selectedPokemon = this.pokemonWithSprites[0];
   }
 
   async getSpriteUrl(pokemon: PokemonInfo): Promise<string | undefined> {
@@ -55,6 +57,24 @@ export class PokedexComponent implements OnInit {
 
   selectPokemon(pokemon: PokemonInfo): void {
     this.selectedPokemon = pokemon;
+    this.loadPokemonDetails(pokemon);
+    this.loadPokemonDescription(pokemon);
+  }
+
+  async loadPokemonDetails(pokemon: PokemonInfo): Promise<void> {
+    try {
+      this.selectedPokemonDetails = await this.getDetails(pokemon);
+    } catch (error) {
+      console.error(`Error fetching details for Pokémon with ID ${pokemon.id}:`, error);
+    }
+  }
+
+  async loadPokemonDescription(pokemon: PokemonInfo): Promise<void> {
+    try {
+      this.selectedPokemonDescription = await this.pokemonService.getPokemonDescription(pokemon.id);
+    } catch (error) {
+      console.error(`Error fetching description for Pokémon with ID ${pokemon.id}:`, error);
+    }
   }
 
   async getDetails(pokemon: PokemonInfo): Promise<{ height: number; weight: number; types: string[] }> {
@@ -69,5 +89,4 @@ export class PokedexComponent implements OnInit {
       return { height: 0, weight: 0, types: [] }; // Return default values on error
     }
   }
-  
 }

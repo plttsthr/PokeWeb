@@ -1,8 +1,8 @@
 <div class="container mt-5 py-4">
     <div class="row p-2">
       <!-- Left column for Pokémon names and IDs -->
-      <div class="col-md-5">
-        <div class="card border border-black  m-4 py-2 overflow-auto"  style="max-height: 500px;"    >
+      <div class="col-md-6">
+        <div class="card border border-black  m-4  overflow-auto"  style="max-height: 500px;"    >
           <div *ngFor="let pokemon of pokemonWithSprites">
 
             <div class="card-body border border-black m-1 d-flex align-items-center justify-content-center" (click)="selectPokemon(pokemon)" [class.selected]="selectedPokemon === pokemon">
@@ -24,24 +24,34 @@
       </div>
   
       <!-- Right column for Pokémon image -->
-      <div class="col-md-7">
+      <div class="col-md-6">
         <!-- Title Box -->
-        <div class="card border border-black text-center  align-items-center m-2" style="height: 50px;">
-            <h3>{{ selectedPokemon ? selectedPokemon.name : '' }}</h3>
+        <div class="card border border-black text-center  align-items-center m-2 d-flex" style="height: 50px;">
+            <h4>{{ selectedPokemon && selectedPokemon.id !== undefined ? 'No.' + selectedPokemon.id : '' }}   {{ selectedPokemon ? selectedPokemon.name : '' }}</h4>
+           
         </div>
     
         <!-- Pokémon Sprite Box -->
         <div class="card border border-black text-center m-2 right-section" style="height: 250px;">
             <img *ngIf="selectedPokemon && selectedPokemon.spriteUrl" [src]="selectedPokemon.spriteUrl" alt="Selected Pokemon Sprite" class="pokemon-image-pokedex">
-            <img *ngIf="!selectedPokemon" src="../../../assets/placeholder-image.jpg" alt="Placeholder Image" class="pokemon-image-pokedex">
+            <!-- <img *ngIf="!selectedPokemon" src="../../../assets/placeholder-image.jpg" alt="Placeholder Image" class="pokemon-image-pokedex"> -->
         </div>
     
-        <!-- Description Box -->
-        <div class="card border border-black text-center m-2" style="height: 200px;">
-            <h3>Description</h3>
-            <!-- Add your description content here -->
-            <!-- <p>{{ selectedPokemon.description }}</p> -->
+        <div class="card border border-black m-2 p-3" style="height: 200px;">
+            <div class="row">
+                <!-- Left column for Pokemon details -->
+                <div class="col-md-6">
+                    <p>{{ selectedPokemonDetails && selectedPokemonDetails.height !== 0 ? 'Height: ' + selectedPokemonDetails.height : '' }}</p>
+                    <p>{{ selectedPokemonDetails && selectedPokemonDetails.weight !== 0 ? 'Weight: ' + selectedPokemonDetails.weight : '' }}</p>
+                    <p>{{ selectedPokemonDetails && selectedPokemonDetails.types.length !== 0 ? 'Type: ' + selectedPokemonDetails.types.join(', ') : '' }}</p>
+                </div>
+                <!-- Right column for Pokemon description -->
+                <div class="col-md-6">
+                    <p>{{ selectedPokemonDescription }}</p>
+                </div>
+            </div>
         </div>
+        
     </div>
     
     </div>
