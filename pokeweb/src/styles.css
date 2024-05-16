@@ -60,7 +60,12 @@ body{
 
 }
 
- 
+.spacer {
+    flex-grow: .3; 
+}
+
+
+
 .pokemon-list{
     background-color: #d34a32;
 }
@@ -110,13 +115,13 @@ body{
 
 .btn-home{
     border: 1px solid #000;
-    border-radius: 5px;
-    background-color: #d34a32;
+    border-radius: 0px;
+    background-color: #d71e1e;
 }
 
 .btn-home:hover{
 
-    border-radius: 5px;
+
     background-color: #3285d3;
 }
 

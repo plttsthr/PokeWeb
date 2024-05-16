@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonAPIService } from '../../services/pokemon-api.service';
 import { resultArray } from '../../interfaces/pokemonAPI';
-import { Pokemon } from '../../interfaces/pokemonModel';
 import { SearchService } from '../../services/search-bar.service';
 
 @Component({
@@ -11,12 +10,12 @@ import { SearchService } from '../../services/search-bar.service';
 })
 export class GridVisualizerComponent implements OnInit{
 
-  constructor(private pokemonservice: PokemonAPIService, private searchService: SearchService) {}
+  constructor(private pokemonservice: PokemonAPIService, 
+              private searchService: SearchService) {} // Inject the Pokédex service
 
   pokemonList: resultArray[] = [];
   loading: boolean = false;
   filteredPokemonList: resultArray[] = [];
-
 
   ngOnInit(): void {
     this.loadFullList();
@@ -47,6 +46,5 @@ export class GridVisualizerComponent implements OnInit{
       );
     }
   }
-
 
 }

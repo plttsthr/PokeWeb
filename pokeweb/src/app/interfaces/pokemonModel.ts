@@ -353,4 +353,11 @@ export interface Pokemon {
   stats: Stat[];
   types: Type[];
   past_types: PastType[];
+
+  
+}
+
+export interface PokemonInfo {
+  id: string;
+  name: string;
 }

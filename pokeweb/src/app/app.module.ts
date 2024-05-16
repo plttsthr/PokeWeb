@@ -8,6 +8,8 @@ import { GridVisualizerComponent } from './components/grid-visualizer/grid-visua
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CardGridComponent } from './components/card-grid/card-grid.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { PokedexComponent } from './components/pokedex/pokedex.component';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     GridVisualizerComponent,
     NavbarComponent,
     CardGridComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    PokedexComponent,
+
   ],
   imports: [
     BrowserModule,

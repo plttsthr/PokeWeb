@@ -1,8 +1,11 @@
+<div class="p-2">
+    <div *ngIf="pokemonSprites.length > 0">
+        <img *ngFor="let spriteUrl of pokemonSprites" [src]="spriteUrl" alt="Pokemon Sprite">
+    </div>
+      
+    <span>No. {{pokemonId}}</span>
+    <h4 *ngIf="pokemonData">{{pokemonData.name | titlecase}}</h4>
+    <button *ngIf="pokemonData" class="btn-home btn-primary" (click)="addToPokedex(pokemonId, pokemonData.name)">Add to Pokédex</button>
+    
 
-<div *ngIf="pokemonSprites.length > 0">
-
-    <img *ngFor="let spriteUrl of pokemonSprites" [src]="spriteUrl" alt="Pokemon Sprite">
 </div>
-  
-<span>No. {{pokemonId}}</span>
-<h4 *ngIf="pokemonData">{{pokemonData.name | titlecase}}</h4>

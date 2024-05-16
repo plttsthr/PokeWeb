@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { resultArray } from '../../interfaces/pokemonAPI';
 import { PokemonAPIService } from '../../services/pokemon-api.service';
-import { Pokemon } from '../../interfaces/pokemonModel';
+import { Pokemon, PokemonInfo } from '../../interfaces/pokemonModel';
+import { AddPokemonsPokedexService } from '../../services/add-pokemons-pokedex.service';
 
 @Component({
   selector: 'app-card-grid',
@@ -10,7 +11,7 @@ import { Pokemon } from '../../interfaces/pokemonModel';
 })
 export class CardGridComponent implements OnChanges {
 
-  constructor(private pokemonService: PokemonAPIService) { }
+  constructor(private pokemonService: PokemonAPIService, private pokedexService: AddPokemonsPokedexService) { }
 
   ngOnChanges(): void {
     this.extractPokemonData();
@@ -37,4 +38,9 @@ export class CardGridComponent implements OnChanges {
       }
     }
   }
+
+  addToPokedex(id: string, name: string): void {
+    const pokemonInfo: PokemonInfo = { id, name };
+    this.pokedexService.addToPokedex(pokemonInfo);
+}
 }
