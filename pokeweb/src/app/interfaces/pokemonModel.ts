@@ -359,4 +359,6 @@ export interface PokemonInfo {
   id: string;
   name: string;
   spriteUrl?: string;
+  userId?: string;
+  docId?: string;
 }

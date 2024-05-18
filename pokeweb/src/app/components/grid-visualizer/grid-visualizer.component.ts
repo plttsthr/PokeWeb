@@ -3,6 +3,7 @@ import { PokemonAPIService } from '../../services/pokemon-api.service';
 import { resultArray } from '../../interfaces/pokemonAPI';
 import { SearchService } from '../../services/search-bar.service';
 
+
 @Component({
   selector: 'app-grid-visualizer',
   templateUrl: './grid-visualizer.component.html',

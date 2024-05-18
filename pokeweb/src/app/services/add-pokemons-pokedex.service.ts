@@ -11,7 +11,7 @@ export class AddPokemonsPokedexService {
 
   constructor() {}
 
-  addToPokedex(pokemon: PokemonInfo): void {
+  addToPokedexList(pokemon: PokemonInfo): void {
     const addedPokemons = this.addedPokemonsSubject.getValue();
     addedPokemons.push(pokemon);
     this.addedPokemonsSubject.next(addedPokemons);

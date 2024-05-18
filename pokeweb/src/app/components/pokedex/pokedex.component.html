@@ -1,59 +1,58 @@
 <div class="container mt-5 py-4">
-    <div class="row p-2">
-      <!-- Left column for Pokémon names and IDs -->
-      <div class="col-md-6">
-        <div class="card border border-black  m-4  overflow-auto"  style="max-height: 500px;"    >
-          <div *ngFor="let pokemon of pokemonWithSprites">
-
-            <div class="card-body border border-black m-1 d-flex align-items-center justify-content-center" (click)="selectPokemon(pokemon)" [class.selected]="selectedPokemon === pokemon">
-                <img *ngIf="pokemon.spriteUrl" [src]="pokemon.spriteUrl" alt="Pokemon Sprite" class="pokemon-image-small">
-
-                <div class="pokemon-details d-flex ">
-                    <span *ngIf="pokemon.id" class="card-text">No: {{ pokemon.id }}</span>
-                  <div class="spacer"></div>
-                  <span class="card-title">{{ pokemon.name }}</span>
-                </div>
-
-              </div>
-              
-              
-
+  <div class="row align-content-center p-2">
+    
+    <!-- Left column for Pokémon names and IDs -->
+    <div class="col-md-5 mt-1" style="max-height: 500px; min-height: 500px;">
+      <div class="card m-2 overflow-auto card-pokedex" style="max-height: 500px; height: 500px;">
+        <div *ngFor="let pokemon of pokemonWithSprites">
+          <div class="card-body m-1 d-flex align-items-center justify-content-between"
+               (click)="selectPokemon(pokemon)" [class.selected]="selectedPokemon === pokemon">
+            <img *ngIf="pokemon.spriteUrl" [src]="pokemon.spriteUrl" alt="Pokemon Sprite" class="pokemon-image-small">
+            <div class="pokemon-details d-flex align-items-center justify-content-between w-100">
+              <span *ngIf="pokemon.id" class="card-text">No: {{ pokemon.id }}</span>
+              <span class="card-title mb-0">{{ pokemon.name }}</span>
+              <button *ngIf="pokemon.docId" class="btn-pokedex position-relative" (click)="deletePokemon($event, pokemon)">
+                <img src="../../../assets/pokeball-gif.gif" alt="Pokeball" class="pokeball-image-gif-pokedex position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);">
+                <span class="mx-2"> Delete</span>
+              </button>
+            </div>
           </div>
-          
         </div>
       </div>
-  
-      <!-- Right column for Pokémon image -->
-      <div class="col-md-6">
-        <!-- Title Box -->
-        <div class="card border border-black text-center  align-items-center m-2 d-flex" style="height: 50px;">
-            <h4>{{ selectedPokemon && selectedPokemon.id !== undefined ? 'No.' + selectedPokemon.id : '' }}   {{ selectedPokemon ? selectedPokemon.name : '' }}</h4>
-           
-        </div>
-    
-        <!-- Pokémon Sprite Box -->
-        <div class="card border border-black text-center m-2 right-section" style="height: 250px;">
-            <img *ngIf="selectedPokemon && selectedPokemon.spriteUrl" [src]="selectedPokemon.spriteUrl" alt="Selected Pokemon Sprite" class="pokemon-image-pokedex">
-            <!-- <img *ngIf="!selectedPokemon" src="../../../assets/placeholder-image.jpg" alt="Placeholder Image" class="pokemon-image-pokedex"> -->
-        </div>
-    
-        <div class="card border border-black m-2 p-3" style="height: 200px;">
-            <div class="row">
-                <!-- Left column for Pokemon details -->
-                <div class="col-md-6">
-                    <p>{{ selectedPokemonDetails && selectedPokemonDetails.height !== 0 ? 'Height: ' + selectedPokemonDetails.height : '' }}</p>
-                    <p>{{ selectedPokemonDetails && selectedPokemonDetails.weight !== 0 ? 'Weight: ' + selectedPokemonDetails.weight : '' }}</p>
-                    <p>{{ selectedPokemonDetails && selectedPokemonDetails.types.length !== 0 ? 'Type: ' + selectedPokemonDetails.types.join(', ') : '' }}</p>
-                </div>
-                <!-- Right column for Pokemon description -->
-                <div class="col-md-6">
-                    <p>{{ selectedPokemonDescription }}</p>
-                </div>
-            </div>
-        </div>
-        
     </div>
     
+    <!-- Right column for Pokémon details -->
+    <div class="col-md-7 mt-1 align-items-center justify-contents-center">
+      
+      <!-- Title Box -->
+      <div class="card text-center d-flex align-items-center justify-content-center m-2" style="height: 50px;">
+        <div class="d-flex align-items-center justify-content-center w-100">
+          <h4 class="mb-0">
+            {{ selectedPokemon && selectedPokemon.id !== undefined ? 'No.' + selectedPokemon.id : '' }}
+            {{ selectedPokemon ? selectedPokemon.name : '' }}
+          </h4>
+        </div>
+      </div>
+      
+      <!-- Pokémon Sprite Box -->
+      <div class="card  text-center m-2 right-section" style="height: 250px;">
+        <img *ngIf="selectedPokemon && selectedPokemon.spriteUrl" [src]="selectedPokemon.spriteUrl" alt="Selected Pokemon Sprite" class="pokemon-image-pokedex">
+      </div>
+      
+      <!-- Pokémon Details Box -->
+      <div class="card m-2 p-3 d-flex align-items-center justify-content-center" style="min-height: 180px; overflow: auto;">
+        <div class="row w-100">
+          <div class="col-12 col-md-4 d-flex flex-column justify-content-around">
+            <p class="mb-1">{{ selectedPokemonDetails && selectedPokemonDetails.height !== 0 ? 'Height: ' + selectedPokemonDetails.height : '' }}</p>
+            <p class="mb-1">{{ selectedPokemonDetails && selectedPokemonDetails.weight !== 0 ? 'Weight: ' + selectedPokemonDetails.weight : '' }}</p>
+            <p class="mb-1">{{ selectedPokemonDetails && selectedPokemonDetails.types.length !== 0 ? 'Type: ' + selectedPokemonDetails.types.join(', ') : '' }}</p>
+          </div>
+          <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
+            <p class="mb-0">{{ selectedPokemonDescription }}</p>
+          </div>
+        </div>
+      </div>
+      
     </div>
   </div>
-  
+</div>

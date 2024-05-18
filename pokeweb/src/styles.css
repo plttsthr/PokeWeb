@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-@import url('https://fonts.cdnfonts.com/css/pf-tempesta-seven');
+@import url('https://fonts.cdnfonts.com/css/pokemon-solid');
 @import url('https://fonts.cdnfonts.com/css/proggy-clean');
 
 
@@ -18,13 +18,14 @@ p{
     font-size: 1.1rem;
 }
 
+
+
 .navbar.navbar-default .collapse {
     display: block !important;
 }
 
 h1{                                                
-    font-size: 1.5rem;
-                                     
+    font-size: 1.5rem;                          
     color: #f3c304;
     text-shadow: 2px 2px #ff4800;
                                                 
@@ -41,26 +42,20 @@ h1{
 
 
 .title-dash{
-    font-family: 'PF Tempesta Seven', sans-serif;
-    font-size: 1.2rem;
-    text-shadow: 2px 2px #3262d3;
-    -webkit-text-stroke: .7px rgb(246, 253, 25);
+    font-family: 'Pokemon Solid', sans-serif;
+    font-size: 1.4rem;
+    text-shadow: 2px 2px #196db7;
+    -webkit-text-stroke: .7px rgb(18, 19, 21);
+    color: #40da85;
 }
 
 
 
-.login{
-    background-color: #d6cbb6;
-    border: 10px solid #000;
-}
 
-body{
-    background-color: #bdbdbd;
-
-}
 
 .navbar{
-    background-color: #46cbb0;
+    background-color: #2bb7ca;
+    border-bottom: 2px solid #000000;
 
 }
 
@@ -70,11 +65,7 @@ body{
 
 
 /* Styles for the small Pokemon image */
-.pokemon-image-small {
-    height: 90px; /* Adjust the width as needed */
-   
-    margin-right: 10px; /* Add space between the image and details */
-  }
+
   
   /* Styles for the Pokemon details */
   .pokemon-details {
@@ -96,14 +87,11 @@ body{
   }
   
 
-  .selected-card{
-    background-color: #f3c304;
-  }
 
   .right-section{
 
     background-image: url("./assets/pokedex.jpeg");
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: 100%;
     
   }
@@ -119,6 +107,30 @@ body{
  
    
 }
+
+.card{
+    border: 2px solid #000;
+    border-radius: 0px;
+}
+
+
+
+.card-body{
+    border: 2px solid #000;
+    border-radius: 0px;
+    height: 60px;
+    background-color: #d0d8d6;
+}
+
+.text-success {
+    color: #28a745;
+}
+
+.card-pokedex:hover{
+    background-color: #ffffff;
+}
+
+
 
 .form-control {
 
@@ -142,8 +154,10 @@ body{
 .btn{
     border: 2px solid #000;
     border-radius: 0px;
-    background-color: #d34a32;
+    border-radius: 0px;
+    background-color: #da4040;
 }
+
 
 .btn:hover{
     border: 2px solid #000;
@@ -154,7 +168,7 @@ body{
 .btn-home{
     border: 1px solid #000;
     border-radius: 0px;
-    background-color: #d71e1e;
+    background-color: #da4040;
 }
 
 .btn-home:hover{
@@ -163,34 +177,39 @@ body{
     background-color: #3285d3;
 }
 
+.btn-pokedex{
 
+    border: 2px solid #000;
+    border-radius: 20px;
+
+}
 
 .sprites-container {
     display: flex;
     justify-content: center; /* Center the images horizontally */
     gap: 10px; /* Add spacing between images */
-  }
+}
   
   
-.card-body{
-    background-color: #d2d2d2;
-    height: 60px;
-}
-
-.card-body:focus{
-    background-color: #46cbb0;
-    color: indianred;
-}
 
 .pokemon-image-small {
     width: 50px; /* Adjust the width as needed */
     height: auto; /* Automatically adjust height to maintain aspect ratio */
-  }
+}
+
+.pokemon-image-gif {
+    width: 60px; /* Adjust the width as needed */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+}
+
+.pokemon-image-gif-pokedex {
+    height: 80px;
+}
+  
   
 
-  .overflow-auto::-webkit-scrollbar {
+.overflow-auto::-webkit-scrollbar {
     width: 10px; /* Width of the scrollbar */
-
 }
 
 .overflow-auto::-webkit-scrollbar-track {
@@ -212,3 +231,38 @@ body{
 .selected {
     background-color: #2bcaaa; /* Change this to the desired color */
 }
+
+.modal-backdrop {
+    z-index: -1;
+  }
+
+
+
+
+.modal-backdrop {
+    z-index: 1020 !important; /* Adjust as necessary */
+}
+
+body {
+    background-color: #efdcac;
+}
+
+
+.container-grid{
+    z-index: 1051; /* Adjust as necessary */
+}
+
+.auth-buttons button{
+
+    margin-right: 10px;
+}
+
+.pokeball-img {
+    width: 40px; /* Adjust the size as needed */
+    margin-left: 8px; /* Adjust the spacing between the image and the text */
+}
+
+.card-container {
+    border: 2px solid #000000; /* Border style */
+    background-color: #d0d8d6;
+  }

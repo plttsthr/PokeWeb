@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AddPokemonsPokedexService } from '../../services/add-pokemons-pokedex.service';
-import { PokemonInfo, Pokemon } from '../../interfaces/pokemonModel';
 import { PokemonAPIService } from '../../services/pokemon-api.service';
-import { SearchService } from '../../services/search-bar.service';
+import { PokedexFirestoreService } from '../../services/pokedex-firestore.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { PokemonInfo } from '../../interfaces/pokemonModel';
 
 @Component({
   selector: 'app-pokedex',
@@ -10,26 +10,35 @@ import { SearchService } from '../../services/search-bar.service';
   styleUrls: ['./pokedex.component.css']
 })
 export class PokedexComponent implements OnInit {
-  addedPokemons: PokemonInfo[] = [];
-  pokemonWithSprites: (PokemonInfo & { spriteUrl?: string })[] = [];
+
+  firebasePokemons: (PokemonInfo & { docId?: string })[] = [];
+  pokemonWithSprites: (PokemonInfo & { docId?: string; spriteUrl?: string })[] = [];
   selectedPokemon: PokemonInfo | undefined;
   selectedPokemonDetails: { height: number; weight: number; types: string[] } = { height: 0, weight: 0, types: [] };
   selectedPokemonDescription: string = '';
+  userID: string | null = null; // Initialize with null
 
   constructor(
-    private pokedexService: AddPokemonsPokedexService,
     private pokemonService: PokemonAPIService,
-    private searchService: SearchService)
-  {}
+    private pokedexFirestoreService: PokedexFirestoreService,
+    private authService: AuthService
+  ) {}
 
-  ngOnInit(): void {
-    this.loadAddedPokemons();
-    
+  async ngOnInit(): Promise<void> {
+    await this.loadUserID();
+    if (this.userID) {
+      await this.loadFirebasePokemons();
+      await this.loadSpritesForPokemons();
+    }
   }
 
-  loadAddedPokemons(): void {
-    this.pokedexService.addedPokemons$.subscribe((pokemons: PokemonInfo[]) => {
-      this.addedPokemons = pokemons;
+  async loadUserID(): Promise<void> {
+    this.userID = await this.authService.getCurrentUserId();
+  }
+
+  loadFirebasePokemons(): void {
+    this.pokedexFirestoreService.getAllPokemonForUser(this.userID!).subscribe((pokemonsFire: (PokemonInfo & { docId?: string })[]) => {
+      this.firebasePokemons = pokemonsFire;
       this.loadSpritesForPokemons();
     });
   }
@@ -37,56 +46,69 @@ export class PokedexComponent implements OnInit {
   async loadSpritesForPokemons(): Promise<void> {
     this.pokemonWithSprites = []; // Clear existing data
 
-    // Fill the array with dummy data to display 5 cards if there are fewer than 5 Pokémon
-    for (let i = 0; i < Math.max(7, this.addedPokemons.length); i++) {
-      const pokemon = this.addedPokemons[i];
-      const spriteUrl = pokemon ? (await this.getSpriteUrl(pokemon)) : undefined;
+    for (let i = 0; i < this.firebasePokemons.length; i++) {
+      const pokemon = this.firebasePokemons[i];
+      const spriteUrl = await this.getSpriteUrl(pokemon.id);
       this.pokemonWithSprites.push({ ...pokemon, spriteUrl });
     }
   }
 
-  async getSpriteUrl(pokemon: PokemonInfo): Promise<string | undefined> {
+  async getSpriteUrl(id: string): Promise<string | undefined> {
     try {
-      const fullPokemonData: Pokemon = await this.pokemonService.getById(pokemon.id);
+      const fullPokemonData = await this.pokemonService.getById(id);
       return fullPokemonData.sprites?.front_default;
-    } catch (error) {
-      console.error(`Error fetching sprites for Pokémon with ID ${pokemon.id}:`, error);
+    } catch (error: any) {
+      console.error(`Error fetching sprite for Pokémon with ID ${id} from the API:`, error);
       return undefined;
     }
   }
 
-  selectPokemon(pokemon: PokemonInfo): void {
+  selectPokemon(pokemon: PokemonInfo & { id: string }): void {
     this.selectedPokemon = pokemon;
     this.loadPokemonDetails(pokemon);
     this.loadPokemonDescription(pokemon);
   }
 
-  async loadPokemonDetails(pokemon: PokemonInfo): Promise<void> {
+  async loadPokemonDetails(pokemon: PokemonInfo & { id: string }): Promise<void> {
     try {
-      this.selectedPokemonDetails = await this.getDetails(pokemon);
-    } catch (error) {
+      const fullPokemonData = await this.pokemonService.getById(pokemon.id);
+      this.selectedPokemonDetails = {
+        height: fullPokemonData.height,
+        weight: fullPokemonData.weight,
+        types: fullPokemonData.types.map((type: any) => type.type.name)
+      };
+    } catch (error: any) {
       console.error(`Error fetching details for Pokémon with ID ${pokemon.id}:`, error);
     }
   }
 
-  async loadPokemonDescription(pokemon: PokemonInfo): Promise<void> {
+  async loadPokemonDescription(pokemon: PokemonInfo & { id: string }): Promise<void> {
     try {
       this.selectedPokemonDescription = await this.pokemonService.getPokemonDescription(pokemon.id);
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Error fetching description for Pokémon with ID ${pokemon.id}:`, error);
     }
   }
 
-  async getDetails(pokemon: PokemonInfo): Promise<{ height: number; weight: number; types: string[] }> {
-    try {
-      const fullPokemonData: Pokemon = await this.pokemonService.getById(pokemon.id);
-      const height = fullPokemonData.height;
-      const weight = fullPokemonData.weight;
-      const types = fullPokemonData.types.map((type: any) => type.type.name);
-      return { height, weight, types };
-    } catch (error) {
-      console.error(`Error fetching details for Pokémon with ID ${pokemon.id}:`, error);
-      return { height: 0, weight: 0, types: [] }; // Return default values on error
+  deletePokemon(event: Event, pokemon: PokemonInfo & { docId?: string }): void {
+    event.stopPropagation(); // Prevent event bubbling up to the card body
+
+    console.log(" let's see what delete gets ", pokemon);
+
+    if (!this.userID || !pokemon.docId) {
+      console.error('Cannot delete Pokemon: userID or docId is missing');
+      return;
     }
+
+    this.pokedexFirestoreService.deletePokemonForUser(this.userID, pokemon.docId)
+      .then(() => {
+        console.log(`Pokemon ${pokemon.id} deleted successfully!`);
+        // Optionally update the UI or show a confirmation message
+        this.loadFirebasePokemons(); // Reload the Pokemon list after deletion
+      })
+      .catch((error) => {
+        console.error(`Error deleting Pokemon ${pokemon.name}:`, error);
+        // Optionally show an error message
+      });
   }
 }

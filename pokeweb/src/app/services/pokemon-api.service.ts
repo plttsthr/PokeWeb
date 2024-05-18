@@ -13,7 +13,7 @@ export class PokemonAPIService {
   async getByPage():Promise<resultArray[]>{
     const result = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=500&offset=0");
     const resultJson = await result.json();
-    console.log(resultJson);
+
     if(resultJson.results.length > 0) return resultJson.results
     return [];
   }
@@ -21,14 +21,14 @@ export class PokemonAPIService {
   async getById(id: string | number): Promise<Pokemon> {
     const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     const resultJson = await result.json();
-    console.log(resultJson);
+
     return resultJson;
   }
   
   async searchPokemon(query: string): Promise<resultArray[]> {
     const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
     const resultJson = await result.json();
-    console.log(resultJson);
+
     return resultJson.results;
   }
 
