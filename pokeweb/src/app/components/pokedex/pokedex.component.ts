@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PokemonAPIService } from '../../services/pokemon-api.service';
 import { PokedexFirestoreService } from '../../services/pokedex-firestore.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PokemonInfo } from '../../interfaces/pokemonModel';
+import { SearchService } from '../../services/search-bar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pokedex',
   templateUrl: './pokedex.component.html',
   styleUrls: ['./pokedex.component.css']
 })
-export class PokedexComponent implements OnInit {
+export class PokedexComponent implements OnInit, OnDestroy {
 
   firebasePokemons: (PokemonInfo & { docId?: string })[] = [];
   pokemonWithSprites: (PokemonInfo & { docId?: string; spriteUrl?: string })[] = [];
@@ -17,11 +19,15 @@ export class PokedexComponent implements OnInit {
   selectedPokemonDetails: { height: number; weight: number; types: string[] } = { height: 0, weight: 0, types: [] };
   selectedPokemonDescription: string = '';
   userID: string | null = null; // Initialize with null
+  filteredPokemonList: (PokemonInfo & { docId?: string; spriteUrl?: string })[] = [];
+  private searchSubscription: Subscription | undefined;
+  loading: boolean = true; // Add a loading state variable
 
   constructor(
     private pokemonService: PokemonAPIService,
     private pokedexFirestoreService: PokedexFirestoreService,
-    private authService: AuthService
+    private authService: AuthService,
+    private searchService: SearchService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -29,6 +35,19 @@ export class PokedexComponent implements OnInit {
     if (this.userID) {
       await this.loadFirebasePokemons();
       await this.loadSpritesForPokemons();
+      this.filteredPokemonList = [...this.pokemonWithSprites];
+      this.loading = false; // Set loading to false after data is loaded
+
+      this.searchSubscription = this.searchService.query.subscribe(query => {
+        this.filterPokemonList(query);
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from search query when component is destroyed
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
     }
   }
 
@@ -37,9 +56,17 @@ export class PokedexComponent implements OnInit {
   }
 
   loadFirebasePokemons(): void {
-    this.pokedexFirestoreService.getAllPokemonForUser(this.userID!).subscribe((pokemonsFire: (PokemonInfo & { docId?: string })[]) => {
+    this.pokedexFirestoreService.getAllPokemonForUser(this.userID!).subscribe(async (pokemonsFire: (PokemonInfo & { docId?: string })[]) => {
       this.firebasePokemons = pokemonsFire;
-      this.loadSpritesForPokemons();
+      await this.loadSpritesForPokemons();
+      this.filteredPokemonList = [...this.pokemonWithSprites];
+      this.loading = false; // Set loading to false after data is loaded
+
+      // Select the first Pokémon after loading
+      if (this.filteredPokemonList.length > 0) {
+        this.selectPokemon(this.filteredPokemonList[0]);
+      }
+
     });
   }
 
@@ -48,6 +75,7 @@ export class PokedexComponent implements OnInit {
 
     for (let i = 0; i < this.firebasePokemons.length; i++) {
       const pokemon = this.firebasePokemons[i];
+
       const spriteUrl = await this.getSpriteUrl(pokemon.id);
       this.pokemonWithSprites.push({ ...pokemon, spriteUrl });
     }
@@ -93,8 +121,6 @@ export class PokedexComponent implements OnInit {
   deletePokemon(event: Event, pokemon: PokemonInfo & { docId?: string }): void {
     event.stopPropagation(); // Prevent event bubbling up to the card body
 
-    console.log(" let's see what delete gets ", pokemon);
-
     if (!this.userID || !pokemon.docId) {
       console.error('Cannot delete Pokemon: userID or docId is missing');
       return;
@@ -110,5 +136,23 @@ export class PokedexComponent implements OnInit {
         console.error(`Error deleting Pokemon ${pokemon.name}:`, error);
         // Optionally show an error message
       });
+  }
+
+  filterPokemonList(query: string): void {
+    if (!query.trim()) {
+      this.filteredPokemonList = [...this.pokemonWithSprites]; // If query is empty, show full list
+    } else {
+      this.filteredPokemonList = this.pokemonWithSprites.filter(pokemon =>
+        pokemon.name.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+    // Automatically select the first Pokémon in the filtered list if it exists
+    if (this.filteredPokemonList.length > 0) {
+      this.selectPokemon(this.filteredPokemonList[0]);
+    } else {
+      this.selectedPokemon = undefined; // Clear the selection if no Pokémon matches the search query
+      this.selectedPokemonDetails = { height: 0, weight: 0, types: [] };
+      this.selectedPokemonDescription = '';
+    }
   }
 }

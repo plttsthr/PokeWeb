@@ -3,6 +3,7 @@
 
 @import url('https://fonts.cdnfonts.com/css/pokemon-solid');
 @import url('https://fonts.cdnfonts.com/css/proggy-clean');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 
 
@@ -54,13 +55,13 @@ h1{
 
 
 .navbar{
-    background-color: #2bb7ca;
+    background-color:#2bcaaa; 
     border-bottom: 2px solid #000000;
 
 }
 
 .spacer {
-    flex-grow: .2; 
+    flex-grow: .1; 
 }
 
 
@@ -154,36 +155,44 @@ h1{
 .btn{
     border: 2px solid #000;
     border-radius: 0px;
-    border-radius: 0px;
-    background-color: #da4040;
+    background-color: #f1b14b;
+
 }
 
 
 .btn:hover{
     border: 2px solid #000;
     border-radius: 0px;
-    background-color: #3285d3;
-}
-
-.btn-home{
-    border: 1px solid #000;
-    border-radius: 0px;
     background-color: #da4040;
 }
 
-.btn-home:hover{
+.btn-search{
+    background-color: #ffffff;
+}
 
+.btn-search:hover{
+    background-color: #f07d1e;
+}
 
-    background-color: #3285d3;
+.btn-search:active{
+    background-color: #f07d1e;
 }
 
 .btn-pokedex{
-
     border: 2px solid #000;
     border-radius: 20px;
-
+    background-color: #f1b14b;
 }
 
+.btn-pokedex:hover{
+    background-color: #da4040;
+}
+
+.btn-success{
+    border: 2px solid #000;
+    border-radius: 20px;
+    background-color: #acdc64;
+}
 .sprites-container {
     display: flex;
     justify-content: center; /* Center the images horizontally */
@@ -229,7 +238,7 @@ h1{
 }
 
 .selected {
-    background-color: #2bcaaa; /* Change this to the desired color */
+    background-color: #2b9dca; /* Change this to the desired color */
 }
 
 .modal-backdrop {
@@ -262,7 +271,28 @@ body {
     margin-left: 8px; /* Adjust the spacing between the image and the text */
 }
 
+.pokeball-img-navbar{
+    width: 35px; /* Adjust the size as needed */
+    margin-left: 8px; /* Adjust the spacing between the image and the text */
+
+}
 .card-container {
     border: 2px solid #000000; /* Border style */
     background-color: #d0d8d6;
   }
+
+
+  @media (max-width: 991.98px) {
+    
+    *{
+        font-size: 1rem;
+    }
+
+    h1{                                                
+        font-size: 1.1rem;                                                                      
+    }
+  }
+
+  
+
+  

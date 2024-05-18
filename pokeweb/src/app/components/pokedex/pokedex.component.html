@@ -1,10 +1,16 @@
 <div class="container mt-5 py-4">
   <div class="row align-content-center p-2">
-    
+
     <!-- Left column for Pokémon names and IDs -->
-    <div class="col-md-5 mt-1" style="max-height: 500px; min-height: 500px;">
-      <div class="card m-2 overflow-auto card-pokedex" style="max-height: 500px; height: 500px;">
-        <div *ngFor="let pokemon of pokemonWithSprites">
+    <div class="col-lg-5 col-md-12 mt-1">
+      <div class="card m-2 overflow-auto card-pokedex" style="max-height: 520px;">
+        <div *ngIf="loading" class="loading-message p-3 align-items-center">
+          <h1>Loading Pokémon list...</h1>
+        </div>
+        <div *ngIf="!loading && filteredPokemonList.length === 0" class="no-results p-3 align-items-center">
+          <h1>Pokémon not in your Pokédex!!</h1>
+        </div>
+        <div *ngFor="let pokemon of filteredPokemonList">
           <div class="card-body m-1 d-flex align-items-center justify-content-between"
                (click)="selectPokemon(pokemon)" [class.selected]="selectedPokemon === pokemon">
             <img *ngIf="pokemon.spriteUrl" [src]="pokemon.spriteUrl" alt="Pokemon Sprite" class="pokemon-image-small">
@@ -12,7 +18,7 @@
               <span *ngIf="pokemon.id" class="card-text">No: {{ pokemon.id }}</span>
               <span class="card-title mb-0">{{ pokemon.name }}</span>
               <button *ngIf="pokemon.docId" class="btn-pokedex position-relative" (click)="deletePokemon($event, pokemon)">
-                <img src="../../../assets/pokeball-gif.gif" alt="Pokeball" class="pokeball-image-gif-pokedex position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);">
+                <img src="assets/pokeball-gif.gif" alt="Pokeball" class="pokeball-image-gif-pokedex position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);">
                 <span class="mx-2"> Delete</span>
               </button>
             </div>
@@ -22,7 +28,7 @@
     </div>
     
     <!-- Right column for Pokémon details -->
-    <div class="col-md-7 mt-1 align-items-center justify-contents-center">
+    <div class="col-lg-7 col-md-12 mt-1">
       
       <!-- Title Box -->
       <div class="card text-center d-flex align-items-center justify-content-center m-2" style="height: 50px;">
@@ -35,12 +41,12 @@
       </div>
       
       <!-- Pokémon Sprite Box -->
-      <div class="card  text-center m-2 right-section" style="height: 250px;">
+      <div class="card text-center m-2 right-section" style="height: 250px;">
         <img *ngIf="selectedPokemon && selectedPokemon.spriteUrl" [src]="selectedPokemon.spriteUrl" alt="Selected Pokemon Sprite" class="pokemon-image-pokedex">
       </div>
       
       <!-- Pokémon Details Box -->
-      <div class="card m-2 p-3 d-flex align-items-center justify-content-center" style="min-height: 180px; overflow: auto;">
+      <div class="card m-2 p-3 d-flex align-items-center justify-content-center" style="min-height: 200px; overflow: auto;">
         <div class="row w-100">
           <div class="col-12 col-md-4 d-flex flex-column justify-content-around">
             <p class="mb-1">{{ selectedPokemonDetails && selectedPokemonDetails.height !== 0 ? 'Height: ' + selectedPokemonDetails.height : '' }}</p>

@@ -1,18 +1,23 @@
-<div class="auth-buttons my-1">
+<div class="auth-buttons mx-2">
     <!-- Show login and signup buttons if user is not logged in -->
     <button *ngIf="!isLoggedIn" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
     <button *ngIf="!isLoggedIn" class="btn" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
     
     <!-- Show logout button if user is logged in -->
-    <button *ngIf="isLoggedIn" class="btn" (click)="Logout()">Logout</button>
+    
+    <div *ngIf="isLoggedIn" class="container d-flex">
+        <button class="btn" (click)="Logout()">Logout</button>
+    </div>
+
   </div>
 <!-- Login Modal -->
 <div class="modal fade text-center" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
+                
+                <img src="assets/pokeball.png" alt="Pokeball" class="pokeball-img">
                 <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                <img src="../../../assets/pokeball.png" alt="Pokeball" class="pokeball-img">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -26,7 +31,7 @@
                         <label for="loginPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" formControlName="passwordLogin" id="loginPassword">
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn">Login</button>
                 </form>
             </div>
         </div>
@@ -38,8 +43,8 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
+                <img src="assets/pokeball.png" alt="Pokeball" class="pokeball-img">
                 <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
-                <img src="../../../assets/pokeball.png" alt="Pokeball" class="pokeball-img">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -57,7 +62,7 @@
                         <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" formControlName="confirmPasswordSignUp" id="signupConfirmPassword">
                     </div>
-                    <button type="submit" class="btn btn-primary">Signup</button>
+                    <button type="submit" class="btn">Signup</button>
                 </form>
             </div>
         </div>

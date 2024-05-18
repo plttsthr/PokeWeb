@@ -11,8 +11,16 @@ export class SearchBarComponent {
 
   constructor(private searchService: SearchService) {}
 
-  onSubmit(): void {
-
+  onSearchInputChange(): void {
+    if (!this.searchQuery.trim()) {
+      this.searchQuery = '';
+    }
     this.searchService.setQuery(this.searchQuery);
+    console.log(this.searchQuery);
+  }
+
+  onSubmit(): void {
+    this.searchService.setQuery(this.searchQuery);
+    console.log(this.searchQuery);
   }
 }
