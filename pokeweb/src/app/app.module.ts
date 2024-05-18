@@ -38,6 +38,7 @@ import { environment } from 'src/environments/environment';
     AngularFireAuthModule,
     ReactiveFormsModule,
     AngularFirestoreModule,
+    
   ],
   providers: [
     AuthService,

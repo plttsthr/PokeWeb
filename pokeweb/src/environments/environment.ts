@@ -1,7 +1,7 @@
 import { defaultEnvironment } from "./environment.default";
 
 export const environment = {
-    production: false,
+    production: true,
 
     firebaseConfig : {
         apiKey: "AIzaSyAP9V2EeKxdNT_2kAyymGNP5nR_tFEEPoM",
