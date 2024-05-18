@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "pokeweb:build:production"
+              "buildTarget": "pokeweb:build:production"
             },
             "development": {
-              "browserTarget": "pokeweb:build:development"
+              "buildTarget": "pokeweb:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pokeweb:build"
+            "buildTarget": "pokeweb:build"
           }
         },
         "test": {
