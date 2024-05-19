@@ -4,7 +4,7 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 
 ## Features
 
-- **List of Pokémon:** Displays a list of 500 Pokémon with their basic information.
+- **PokeList:** Displays a list of 500 Pokémon with their name, id and sprite.
 - **Add to Pokédex:** Logged-in users can add Pokémon to their personal Pokédex.
 - **Search Pokémon by name:** Users can search for a Pokémon using the search bar.
 - **Authentication:** Only logged-in users can add Pokémon to their Pokédex.
