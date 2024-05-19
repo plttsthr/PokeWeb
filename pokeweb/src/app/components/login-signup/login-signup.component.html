@@ -1,11 +1,11 @@
-<div class="auth-buttons mx-2">
+<div class="auth-buttons">
     <!-- Show login and signup buttons if user is not logged in -->
     <button *ngIf="!isLoggedIn" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
     <button *ngIf="!isLoggedIn" class="btn" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
     
     <!-- Show logout button if user is logged in -->
     
-    <div *ngIf="isLoggedIn" class="container d-flex">
+    <div *ngIf="isLoggedIn" class="d-flex" style="padding-top: 2px;">
         <button class="btn" (click)="Logout()">Logout</button>
     </div>
 

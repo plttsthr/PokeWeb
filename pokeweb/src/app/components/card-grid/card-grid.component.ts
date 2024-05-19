@@ -3,6 +3,7 @@ import { PokemonAPIService } from '../../services/pokemon-api.service';
 import { Pokemon, PokemonInfo } from '../../interfaces/pokemonModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { PokedexFirestoreService } from '../../services/pokedex-firestore.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-card-grid',
@@ -17,7 +18,8 @@ export class CardGridComponent implements OnChanges {
   constructor(
     private pokemonService: PokemonAPIService,
     private pokedexFirestoreService: PokedexFirestoreService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {
     this.authService.getCurrentUserId().then(userId => {
       this.userID = userId;
@@ -46,6 +48,7 @@ export class CardGridComponent implements OnChanges {
         }
       } catch (error) {
         console.error('Error fetching Pokémon data:', error);
+        
       }
     }
   }
@@ -53,7 +56,8 @@ export class CardGridComponent implements OnChanges {
   async addToPokedex(pokemonInfo: PokemonInfo): Promise<void> {
     const isLoggedIn = await this.authService.isLoggedIn();
     if (!isLoggedIn) {
-      alert('You need to be logged in to add your Pokémon.');
+  
+      this.toastr.warning('You need to be logged in to add your Pokémon', 'Login Required');
       return;
     }
 
@@ -63,19 +67,17 @@ export class CardGridComponent implements OnChanges {
     });
 
     if (!this.userID) {
-      alert('User ID is not available. Please log in again.');
+      this.toastr.warning('Please log in', 'Try Again');
       return;
     }
 
     // Add the Pokemon directly to Firebase
     this.pokedexFirestoreService.addPokemonForUser(this.userID, pokemonInfo)
       .then(() => {
-        // Show check icon
-        this.showCheckIcon = true;
-        setTimeout(() => {
-          this.showCheckIcon = false;
-        }, 4000); // Hide check icon after 4 seconds
+        
+        this.toastr.success('', 'Pokemon Added to Pokédex');
       })
       .catch(error => console.error('Error adding Pokémon to Firebase:', error));
+      
   }
 }

@@ -3,12 +3,15 @@
 
     <!-- Left column for Pokémon names and IDs -->
     <div class="col-lg-5 col-md-12 mt-1">
-      <div class="card m-2 overflow-auto card-pokedex" style="max-height: 520px;">
-        <div *ngIf="loading" class="loading-message p-3 align-items-center">
+      <div class="card m-2 overflow-auto card-pokedex" style="max-height: 80vh;">
+        <div *ngIf="!userID" class="loading-message p-3 align-items-center">
+          <h1>Login to see your Pokédex</h1>
+        </div>
+        <div *ngIf="userID && loading" class="loading-message p-3 align-items-center">
           <h1>Loading Pokémon list...</h1>
         </div>
         <div *ngIf="!loading && filteredPokemonList.length === 0" class="no-results p-3 align-items-center">
-          <h1>Pokémon not in your Pokédex!!</h1>
+          <h1>Pokémon not found!!</h1>
         </div>
         <div *ngFor="let pokemon of filteredPokemonList">
           <div class="card-body m-1 d-flex align-items-center justify-content-between"
@@ -28,10 +31,10 @@
     </div>
     
     <!-- Right column for Pokémon details -->
-    <div class="col-lg-7 col-md-12 mt-1">
+    <div  *ngIf="userID && filteredPokemonList.length > 0" class="col-lg-7 col-md-12 mt-1">
       
       <!-- Title Box -->
-      <div class="card text-center d-flex align-items-center justify-content-center m-2" style="height: 50px;">
+      <div class="card text-center d-flex align-items-center justify-content-center m-2" style="height: 10%;">
         <div class="d-flex align-items-center justify-content-center w-100">
           <h4 class="mb-0">
             {{ selectedPokemon && selectedPokemon.id !== undefined ? 'No.' + selectedPokemon.id : '' }}
@@ -41,12 +44,12 @@
       </div>
       
       <!-- Pokémon Sprite Box -->
-      <div class="card text-center m-2 right-section" style="height: 250px;">
+      <div class="card text-center m-2 right-section" style="height: 50%;">
         <img *ngIf="selectedPokemon && selectedPokemon.spriteUrl" [src]="selectedPokemon.spriteUrl" alt="Selected Pokemon Sprite" class="pokemon-image-pokedex">
       </div>
       
       <!-- Pokémon Details Box -->
-      <div class="card m-2 p-3 d-flex align-items-center justify-content-center" style="min-height: 200px; overflow: auto;">
+      <div class="card m-2 p-3 d-flex align-items-center justify-content-center" style="height: 180px; overflow: auto;">
         <div class="row w-100">
           <div class="col-12 col-md-4 d-flex flex-column justify-content-around">
             <p class="mb-1">{{ selectedPokemonDetails && selectedPokemonDetails.height !== 0 ? 'Height: ' + selectedPokemonDetails.height : '' }}</p>

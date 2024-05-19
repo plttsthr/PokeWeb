@@ -1,298 +1,624 @@
-/* You can add global styles to this file, and also import other style files */
-
-
+/* Imports fon fonts */
 @import url('https://fonts.cdnfonts.com/css/pokemon-solid');
 @import url('https://fonts.cdnfonts.com/css/proggy-clean');
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
-
-
 
 
 *{
-
-    font-family: 'ProggyCleanTTSZBP', sans-serif;
-    font-size: 1.2rem;
-                                                
+  font-family: 'ProggyCleanTTSZBP', sans-serif;
+  font-size: 1.2rem;                                         
 }
 
 p{
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
-
-
 .navbar.navbar-default .collapse {
-    display: block !important;
+  display: block !important;
 }
 
 h1{                                                
-    font-size: 1.5rem;                          
-    color: #f3c304;
-    text-shadow: 2px 2px #ff4800;
-                                                
+  font-size: 1.5rem;                          
+  color: #f3c304;
+  text-shadow: 2px 2px #ff4800;                                            
 }
-
-
-
-.title{
-    font-family: 'PF Tempesta Seven', sans-serif;
-    font-size: 1.5rem;
-    text-shadow: 2px 2px #ff5100;
-    -webkit-text-stroke: .7px rgb(0, 0, 0);
-}
-
 
 .title-dash{
-    font-family: 'Pokemon Solid', sans-serif;
-    font-size: 1.4rem;
-    text-shadow: 2px 2px #196db7;
-    -webkit-text-stroke: .7px rgb(18, 19, 21);
-    color: #40da85;
+  font-family: 'Pokemon Solid', sans-serif;
+  font-size: 1.4rem;
+  text-shadow: 2px 2px #196db7;
+  -webkit-text-stroke: 1px rgb(17, 5, 5);
+  color: #dcd916;
 }
 
-
-
-
-
 .navbar{
-    background-color:#2bcaaa; 
-    border-bottom: 2px solid #000000;
-
+  background-color:#2bcaaa; 
+  border-bottom: 2px solid #000000;
 }
 
 .spacer {
-    flex-grow: .1; 
+  flex-grow: .1; 
 }
 
+.pokemon-details {
+  width: 100%;
+  text-align: left;
+}
 
-/* Styles for the small Pokemon image */
+.pokemon-image-pokedex {
+  width: 200px;
+  height: auto; 
+  align-self: center;
 
-  
-  /* Styles for the Pokemon details */
-  .pokemon-details {
-    width: 100%;
-    text-align: left; /* Align text to the left */
-  }
+}
 
-  .pokemon-image-pokedex {
-    width: 200px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-    align-self: center;
+.pokemon-image {
+  width: 100%;
+  height: auto;
+}
 
-  }
-  
-  /* Styles for the larger Pokemon image */
-  .pokemon-image {
-    width: 100%; /* Ensure the image fills its container */
-    height: auto; /* Maintain aspect ratio */
-  }
-  
+.right-section{
 
-
-  .right-section{
-
-    background-image: url("./assets/pokedex.jpeg");
-    background-repeat: repeat;
-    background-size: 100%;
-    
-  }
+  background-image: url("./assets/pokedex.jpeg");
+  background-repeat: repeat;
+  background-size: 100%;
+}
 
 .login-form{
-
-    color: #ffffff;
-    border: 2px solid #0b0b0b;
-    border-radius: 15px;
-    background-color: #121212;
-    z-index: 999;
-    transform: translate(0%, -30%);
- 
-   
+  color: #ffffff;
+  border: 2px solid #0b0b0b;
+  border-radius: 15px;
+  background-color: #121212;
+  z-index: 999;
+  transform: translate(0%, -30%);
 }
 
 .card{
-    border: 2px solid #000;
-    border-radius: 0px;
+  border: 2px solid #000;
+  border-radius: 0px;
 }
 
-
+.navbar-nav .nav-link.active {
+  color: rgb(255, 255, 255);
+}
 
 .card-body{
-    border: 2px solid #000;
-    border-radius: 0px;
-    height: 60px;
-    background-color: #d0d8d6;
-}
-
-.text-success {
-    color: #28a745;
+  border: 2px solid #000;
+  border-radius: 0px;
+  height: 60px;
+  background-color: #d0d8d6;
 }
 
 .card-pokedex:hover{
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
-
-
 .form-control {
-
-    background-color: #f8f8f8;
-    border: 2px solid #000000;
-    border-radius: 3px;
-    color: #000000;
+  background-color: #f8f8f8;
+  border: 2px solid #000000;
+  border-radius: 3px;
+  color: #000000;
 }
 
 .pokemon-item {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-  }
-  .pokemon-item:hover {
-    background-color: #f0f0f0;
-  }
-
-.btn{
-    border: 2px solid #000;
-    border-radius: 0px;
-    background-color: #f1b14b;
-
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
 }
 
+.pokemon-item:hover {
+  background-color: #f0f0f0;
+}
+
+.btn{
+  border: 2px solid #000;
+  border-radius: 0px;
+  background-color: #f1b14b;
+}
 
 .btn:hover{
-    border: 2px solid #000;
-    border-radius: 0px;
-    background-color: #da4040;
+  border: 2px solid #000;
+  border-radius: 0px;
+  background-color: #da4040;
 }
 
 .btn-search{
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .btn-search:hover{
-    background-color: #f07d1e;
+  background-color: #da4040;
 }
 
 .btn-search:active{
-    background-color: #f07d1e;
+  background-color: #f07d1e;
 }
 
 .btn-pokedex{
-    border: 2px solid #000;
-    border-radius: 20px;
-    background-color: #f1b14b;
+  border: 2px solid #000;
+  border-radius: 20px;
+  background-color: #f1b14b;
 }
 
 .btn-pokedex:hover{
-    background-color: #da4040;
+  background-color: #da4040;
 }
 
-.btn-success{
-    border: 2px solid #000;
-    border-radius: 20px;
-    background-color: #acdc64;
-}
 .sprites-container {
-    display: flex;
-    justify-content: center; /* Center the images horizontally */
-    gap: 10px; /* Add spacing between images */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
   
-  
-
 .pokemon-image-small {
-    width: 50px; /* Adjust the width as needed */
-    height: auto; /* Automatically adjust height to maintain aspect ratio */
+  width: 50px;
+  height: auto;
 }
 
 .pokemon-image-gif {
-    width: 60px; /* Adjust the width as needed */
-    height: auto; /* Automatically adjust height to maintain aspect ratio */
+  width: 60px;
+  height: auto;
 }
 
 .pokemon-image-gif-pokedex {
-    height: 80px;
+  height: 80px;
 }
   
-  
-
 .overflow-auto::-webkit-scrollbar {
-    width: 10px; /* Width of the scrollbar */
+  width: 10px; /* Width of the scrollbar */
 }
 
 .overflow-auto::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Track color */
-    border: 1px solid #000000;
-    border-radius: 2px;
+  background: #f1f1f1; /* Track color */
+  border: 1px solid #000000;
+  border-radius: 2px;
 }
 
 .overflow-auto::-webkit-scrollbar-thumb {
-    background: #0dad90; /* Thumb color */
-    border: 1px solid #000000;
-    border-radius: 2px;
+  background: #0dad90; /* Thumb color */
+  border: 1px solid #000000;
+  border-radius: 2px;
 }
 
 .overflow-auto::-webkit-scrollbar-thumb:hover {
-    background: #2bb9ad; /* Thumb color on hover */
+  background: #2bb9ad; /* Thumb color on hover */
 }
 
 .selected {
-    background-color: #2b9dca; /* Change this to the desired color */
+  background-color: #2b9dca; /* Change this to the desired color */
 }
 
 .modal-backdrop {
-    z-index: -1;
-  }
-
-
-
+  z-index: -1;
+}
 
 .modal-backdrop {
-    z-index: 1020 !important; /* Adjust as necessary */
+  z-index: 1020 !important;
 }
 
 body {
-    background-color: #efdcac;
+   background-color: #efdcac;
 }
 
-
 .container-grid{
-    z-index: 1051; /* Adjust as necessary */
+  z-index: 1051;
 }
 
 .auth-buttons button{
-
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .pokeball-img {
-    width: 40px; /* Adjust the size as needed */
-    margin-left: 8px; /* Adjust the spacing between the image and the text */
+  width: 40px;
+  margin-left: 8px;
 }
 
 .pokeball-img-navbar{
-    width: 35px; /* Adjust the size as needed */
-    margin-left: 8px; /* Adjust the spacing between the image and the text */
+  width: 35px; /* Adjust the size as needed */
+  margin-left: 8px; /* Adjust the spacing between the image and the text */
 
 }
 .card-container {
     border: 2px solid #000000; /* Border style */
     background-color: #d0d8d6;
+}
+
+@media (max-width: 991.98px) {
+  
+  *{
+      font-size: 1rem;
   }
 
+  h1{                                                
+      font-size: 1.1rem;                                                                      
+  }
+}
 
-  @media (max-width: 991.98px) {
-    
-    *{
-        font-size: 1rem;
+.offcanvas-header{
+  background-color: #0dad90;
+}
+
+.offcanvas-body{
+  background-color: #d0d8d6;
+}
+
+
+/* Toastr */
+.toast-title {
+    font-weight: bold;
+  }
+  .toast-message {
+    word-wrap: break-word;
+  }
+  .toast-message a,
+  .toast-message label {
+    color: #FFFFFF;
+  }
+  .toast-message a:hover {
+    color: #CCCCCC;
+    text-decoration: none;
+  }
+  .toast-close-button {
+    position: relative;
+    right: -0.3em;
+    top: -0.3em;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 #ffffff;
+    /* opacity: 0.8; */
+  }
+  .toast-close-button:hover,
+  .toast-close-button:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.4;
+  }
+  /*Additional properties for button version
+   iOS requires the button element instead of an anchor tag.
+   If you want the anchor version, it requires `href="#"`.*/
+  button.toast-close-button {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+  }
+  .toast-center-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .toast-top-center {
+    top: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-bottom-center {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-top-full-width {
+    top: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-bottom-full-width {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-top-left {
+    top: 12px;
+    left: 12px;
+  }
+  .toast-top-right {
+    top: 12px;
+    right: 12px;
+  }
+  .toast-bottom-right {
+    right: 12px;
+    bottom: 12px;
+  }
+  .toast-bottom-left {
+    bottom: 12px;
+    left: 12px;
+  }
+  #toast-container {
+    pointer-events: none;
+    position: fixed;
+    z-index: 999999;
+  }
+  #toast-container * {
+    box-sizing: border-box;
+  }
+  #toast-container .ngx-toastr {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 15px 15px 15px 50px;
+    width: 300px;
+    border-radius: 3px 3px 3px 3px;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 12px #999999;
+    color: #FFFFFF;
+  }
+  #toast-container .ngx-toastr:hover {
+    box-shadow: 0 0 12px #000000;
+    opacity: 1;
+    cursor: pointer;
+  }
+  #toast-container .ngx-toastr.toast-info {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVEhLtZa9SgNBEMc9sUxxRcoUKSzSWIhXpFMhhYWFhaBg4yPYiWCXZxBLERsLRS3EQkEfwCKdjWJAwSKCgoKCcudv4O5YLrt7EzgXhiU3/4+b2ckmwVjJSpKkQ6wAi4gwhT+z3wRBcEz0yjSseUTrcRyfsHsXmD0AmbHOC9Ii8VImnuXBPglHpQ5wwSVM7sNnTG7Za4JwDdCjxyAiH3nyA2mtaTJufiDZ5dCaqlItILh1NHatfN5skvjx9Z38m69CgzuXmZgVrPIGE763Jx9qKsRozWYw6xOHdER+nn2KkO+Bb+UV5CBN6WC6QtBgbRVozrahAbmm6HtUsgtPC19tFdxXZYBOfkbmFJ1VaHA1VAHjd0pp70oTZzvR+EVrx2Ygfdsq6eu55BHYR8hlcki+n+kERUFG8BrA0BwjeAv2M8WLQBtcy+SD6fNsmnB3AlBLrgTtVW1c2QN4bVWLATaIS60J2Du5y1TiJgjSBvFVZgTmwCU+dAZFoPxGEEs8nyHC9Bwe2GvEJv2WXZb0vjdyFT4Cxk3e/kIqlOGoVLwwPevpYHT+00T+hWwXDf4AJAOUqWcDhbwAAAAASUVORK5CYII=") !important;
+  }
+  #toast-container .ngx-toastr.toast-error {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHOSURBVEhLrZa/SgNBEMZzh0WKCClSCKaIYOED+AAKeQQLG8HWztLCImBrYadgIdY+gIKNYkBFSwu7CAoqCgkkoGBI/E28PdbLZmeDLgzZzcx83/zZ2SSXC1j9fr+I1Hq93g2yxH4iwM1vkoBWAdxCmpzTxfkN2RcyZNaHFIkSo10+8kgxkXIURV5HGxTmFuc75B2RfQkpxHG8aAgaAFa0tAHqYFfQ7Iwe2yhODk8+J4C7yAoRTWI3w/4klGRgR4lO7Rpn9+gvMyWp+uxFh8+H+ARlgN1nJuJuQAYvNkEnwGFck18Er4q3egEc/oO+mhLdKgRyhdNFiacC0rlOCbhNVz4H9FnAYgDBvU3QIioZlJFLJtsoHYRDfiZoUyIxqCtRpVlANq0EU4dApjrtgezPFad5S19Wgjkc0hNVnuF4HjVA6C7QrSIbylB+oZe3aHgBsqlNqKYH48jXyJKMuAbiyVJ8KzaB3eRc0pg9VwQ4niFryI68qiOi3AbjwdsfnAtk0bCjTLJKr6mrD9g8iq/S/B81hguOMlQTnVyG40wAcjnmgsCNESDrjme7wfftP4P7SP4N3CJZdvzoNyGq2c/HWOXJGsvVg+RA/k2MC/wN6I2YA2Pt8GkAAAAASUVORK5CYII=") !important;
+  }
+  #toast-container .ngx-toastr.toast-success {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADsSURBVEhLY2AYBfQMgf///3P8+/evAIgvA/FsIF+BavYDDWMBGroaSMMBiE8VC7AZDrIFaMFnii3AZTjUgsUUWUDA8OdAH6iQbQEhw4HyGsPEcKBXBIC4ARhex4G4BsjmweU1soIFaGg/WtoFZRIZdEvIMhxkCCjXIVsATV6gFGACs4Rsw0EGgIIH3QJYJgHSARQZDrWAB+jawzgs+Q2UO49D7jnRSRGoEFRILcdmEMWGI0cm0JJ2QpYA1RDvcmzJEWhABhD/pqrL0S0CWuABKgnRki9lLseS7g2AlqwHWQSKH4oKLrILpRGhEQCw2LiRUIa4lwAAAABJRU5ErkJggg==") !important;
+  }
+  #toast-container .ngx-toastr.toast-warning {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGYSURBVEhL5ZSvTsNQFMbXZGICMYGYmJhAQIJAICYQPAACiSDB8AiICQQJT4CqQEwgJvYASAQCiZiYmJhAIBATCARJy+9rTsldd8sKu1M0+dLb057v6/lbq/2rK0mS/TRNj9cWNAKPYIJII7gIxCcQ51cvqID+GIEX8ASG4B1bK5gIZFeQfoJdEXOfgX4QAQg7kH2A65yQ87lyxb27sggkAzAuFhbbg1K2kgCkB1bVwyIR9m2L7PRPIhDUIXgGtyKw575yz3lTNs6X4JXnjV+LKM/m3MydnTbtOKIjtz6VhCBq4vSm3ncdrD2lk0VgUXSVKjVDJXJzijW1RQdsU7F77He8u68koNZTz8Oz5yGa6J3H3lZ0xYgXBK2QymlWWA+RWnYhskLBv2vmE+hBMCtbA7KX5drWyRT/2JsqZ2IvfB9Y4bWDNMFbJRFmC9E74SoS0CqulwjkC0+5bpcV1CZ8NMej4pjy0U+doDQsGyo1hzVJttIjhQ7GnBtRFN1UarUlH8F3xict+HY07rEzoUGPlWcjRFRr4/gChZgc3ZL2d8oAAAAASUVORK5CYII=") !important;
+  }
+  #toast-container.toast-top-center .ngx-toastr,
+  #toast-container.toast-bottom-center .ngx-toastr {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #toast-container.toast-top-full-width .ngx-toastr,
+  #toast-container.toast-bottom-full-width .ngx-toastr {
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ngx-toastr {
+    background-color: #030303;
+    pointer-events: auto;
+  }
+  .toast-success {
+    background-color: #51A351;
+  }
+  .toast-error {
+    background-color: #BD362F;
+  }
+  .toast-info {
+    background-color: #2F96B4;
+  }
+  .toast-warning {
+    background-color: #F89406;
+  }
+  .toast-progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: #000000;
+    opacity: 0.4;
+  }
+  /*Responsive Design*/
+  @media all and (max-width: 240px) {
+    #toast-container .ngx-toastr.div {
+      padding: 8px 8px 8px 50px;
+      width: 11em;
     }
-
-    h1{                                                
-        font-size: 1.1rem;                                                                      
+    #toast-container .toast-close-button {
+      right: -0.2em;
+      top: -0.2em;
+    }
+  }
+  @media all and (min-width: 241px) and (max-width: 480px) {
+    #toast-container .ngx-toastr.div {
+      padding: 8px 8px 8px 50px;
+      width: 18em;
+    }
+    #toast-container .toast-close-button {
+      right: -0.2em;
+      top: -0.2em;
+    }
+  }
+  @media all and (min-width: 481px) and (max-width: 768px) {
+    #toast-container .ngx-toastr.div {
+      padding: 15px 15px 15px 50px;
+      width: 25em;
     }
   }
 
   
+  /* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
 
+/* position */
+.toast-center-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .toast-top-center {
+    top: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-bottom-center {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-top-full-width {
+    top: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-bottom-full-width {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-top-left {
+    top: 12px;
+    left: 12px;
+  }
+  .toast-top-right {
+    top: 12px;
+    right: 12px;
+  }
+  .toast-bottom-right {
+    right: 12px;
+    bottom: 12px;
+  }
+  .toast-bottom-left {
+    bottom: 12px;
+    left: 12px;
+  }
+  
+  /* toast styles */
+  .toast-title {
+    font-weight: bold;
+  }
+  .toast-message {
+    word-wrap: break-word;
+  }
+  .toast-message a,
+  .toast-message label {
+    color: #FFFFFF;
+  }
+  .toast-message a:hover {
+    color: #CCCCCC;
+    text-decoration: none;
+  }
+  .toast-close-button {
+    position: relative;
+    right: -0.3em;
+    top: -0.3em;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 #ffffff;
+    /* opacity: 0.8; */
+  }
+  .toast-close-button:hover,
+  .toast-close-button:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.4;
+  }
+  /*Additional properties for button version
+   iOS requires the button element instead of an anchor tag.
+   If you want the anchor version, it requires `href="#"`.*/
+  button.toast-close-button {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+  }
+  .toast-container {
+    pointer-events: none;
+    position: fixed;
+    z-index: 999999;
+  }
+  .toast-container * {
+    box-sizing: border-box;
+  }
+  .toast-container .ngx-toastr {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 15px 15px 15px 50px;
+    width: 300px;
+    border-radius: 3px 3px 3px 3px;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    box-shadow: 0 0 12px #999999;
+    color: #FFFFFF;
+  }
+  .toast-container .ngx-toastr:hover {
+    box-shadow: 0 0 12px #000000;
+    opacity: 1;
+    cursor: pointer;
+  }
+  /* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/info-circle.svg */
+  .toast-info {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJyB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMic+PHBhdGggZmlsbD0ncmdiKDI1NSwyNTUsMjU1KScgZD0nTTI1NiA4QzExOS4wNDMgOCA4IDExOS4wODMgOCAyNTZjMCAxMzYuOTk3IDExMS4wNDMgMjQ4IDI0OCAyNDhzMjQ4LTExMS4wMDMgMjQ4LTI0OEM1MDQgMTE5LjA4MyAzOTIuOTU3IDggMjU2IDh6bTAgMTEwYzIzLjE5NiAwIDQyIDE4LjgwNCA0MiA0MnMtMTguODA0IDQyLTQyIDQyLTQyLTE4LjgwNC00Mi00MiAxOC44MDQtNDIgNDItNDJ6bTU2IDI1NGMwIDYuNjI3LTUuMzczIDEyLTEyIDEyaC04OGMtNi42MjcgMC0xMi01LjM3My0xMi0xMnYtMjRjMC02LjYyNyA1LjM3My0xMiAxMi0xMmgxMnYtNjRoLTEyYy02LjYyNyAwLTEyLTUuMzczLTEyLTEydi0yNGMwLTYuNjI3IDUuMzczLTEyIDEyLTEyaDY0YzYuNjI3IDAgMTIgNS4zNzMgMTIgMTJ2MTAwaDEyYzYuNjI3IDAgMTIgNS4zNzMgMTIgMTJ2MjR6Jy8+PC9zdmc+");
+  }
+  /* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/times-circle.svg */
+  .toast-error {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJyB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMic+PHBhdGggZmlsbD0ncmdiKDI1NSwyNTUsMjU1KScgZD0nTTI1NiA4QzExOSA4IDggMTE5IDggMjU2czExMSAyNDggMjQ4IDI0OCAyNDgtMTExIDI0OC0yNDhTMzkzIDggMjU2IDh6bTEyMS42IDMxMy4xYzQuNyA0LjcgNC43IDEyLjMgMCAxN0wzMzggMzc3LjZjLTQuNyA0LjctMTIuMyA0LjctMTcgMEwyNTYgMzEybC02NS4xIDY1LjZjLTQuNyA0LjctMTIuMyA0LjctMTcgMEwxMzQuNCAzMzhjLTQuNy00LjctNC43LTEyLjMgMC0xN2w2NS42LTY1LTY1LjYtNjUuMWMtNC43LTQuNy00LjctMTIuMyAwLTE3bDM5LjYtMzkuNmM0LjctNC43IDEyLjMtNC43IDE3IDBsNjUgNjUuNyA2NS4xLTY1LjZjNC43LTQuNyAxMi4zLTQuNyAxNyAwbDM5LjYgMzkuNmM0LjcgNC43IDQuNyAxMi4zIDAgMTdMMzEyIDI1Nmw2NS42IDY1LjF6Jy8+PC9zdmc+");
+  }
+  /* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/check.svg */
+  .toast-success {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJyB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMic+PHBhdGggZmlsbD0ncmdiKDI1NSwyNTUsMjU1KScgZD0nTTE3My44OTggNDM5LjQwNGwtMTY2LjQtMTY2LjRjLTkuOTk3LTkuOTk3LTkuOTk3LTI2LjIwNiAwLTM2LjIwNGwzNi4yMDMtMzYuMjA0YzkuOTk3LTkuOTk4IDI2LjIwNy05Ljk5OCAzNi4yMDQgMEwxOTIgMzEyLjY5IDQzMi4wOTUgNzIuNTk2YzkuOTk3LTkuOTk3IDI2LjIwNy05Ljk5NyAzNi4yMDQgMGwzNi4yMDMgMzYuMjA0YzkuOTk3IDkuOTk3IDkuOTk3IDI2LjIwNiAwIDM2LjIwNGwtMjk0LjQgMjk0LjQwMWMtOS45OTggOS45OTctMjYuMjA3IDkuOTk3LTM2LjIwNC0uMDAxeicvPjwvc3ZnPg==");
+  }
+  /* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/exclamation-triangle.svg */
+  .toast-warning {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1NzYgNTEyJyB3aWR0aD0nNTc2JyBoZWlnaHQ9JzUxMic+PHBhdGggZmlsbD0ncmdiKDI1NSwyNTUsMjU1KScgZD0nTTU2OS41MTcgNDQwLjAxM0M1ODcuOTc1IDQ3Mi4wMDcgNTY0LjgwNiA1MTIgNTI3Ljk0IDUxMkg0OC4wNTRjLTM2LjkzNyAwLTU5Ljk5OS00MC4wNTUtNDEuNTc3LTcxLjk4N0wyNDYuNDIzIDIzLjk4NWMxOC40NjctMzIuMDA5IDY0LjcyLTMxLjk1MSA4My4xNTQgMGwyMzkuOTQgNDE2LjAyOHpNMjg4IDM1NGMtMjUuNDA1IDAtNDYgMjAuNTk1LTQ2IDQ2czIwLjU5NSA0NiA0NiA0NiA0Ni0yMC41OTUgNDYtNDYtMjAuNTk1LTQ2LTQ2LTQ2em0tNDMuNjczLTE2NS4zNDZsNy40MTggMTM2Yy4zNDcgNi4zNjQgNS42MDkgMTEuMzQ2IDExLjk4MiAxMS4zNDZoNDguNTQ2YzYuMzczIDAgMTEuNjM1LTQuOTgyIDExLjk4Mi0xMS4zNDZsNy40MTgtMTM2Yy4zNzUtNi44NzQtNS4wOTgtMTIuNjU0LTExLjk4Mi0xMi42NTRoLTYzLjM4M2MtNi44ODQgMC0xMi4zNTYgNS43OC0xMS45ODEgMTIuNjU0eicvPjwvc3ZnPg==");
+  }
+  .toast-container.toast-top-center .ngx-toastr,
+  .toast-container.toast-bottom-center .ngx-toastr {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .toast-container.toast-top-full-width .ngx-toastr,
+  .toast-container.toast-bottom-full-width .ngx-toastr {
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ngx-toastr {
+    background-color: #030303;
+    pointer-events: auto;
+  }
+  .toast-success {
+    background-color: #51A351;
+  }
+  .toast-error {
+    background-color: #BD362F;
+  }
+  .toast-info {
+    background-color: #2F96B4;
+  }
+  .toast-warning {
+    background-color: #F89406;
+  }
+  .toast-progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: #000000;
+    opacity: 0.4;
+  }
+  /* Responsive Design */
+  @media all and (max-width: 240px) {
+    .toast-container .ngx-toastr.div {
+      padding: 8px 8px 8px 50px;
+      width: 11em;
+    }
+    .toast-container .toast-close-button {
+      right: -0.2em;
+      top: -0.2em;
+    }
+  }
+  @media all and (min-width: 241px) and (max-width: 480px) {
+    .toast-container .ngx-toastr.div {
+      padding: 8px 8px 8px 50px;
+      width: 18em;
+    }
+    .toast-container .toast-close-button {
+      right: -0.2em;
+      top: -0.2em;
+    }
+  }
+  @media all and (min-width: 481px) and (max-width: 768px) {
+    .toast-container .ngx-toastr.div {
+      padding: 15px 15px 15px 50px;
+      width: 25em;
+    }
+  }
   

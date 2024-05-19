@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { PokemonInfo } from '../../interfaces/pokemonModel';
 import { SearchService } from '../../services/search-bar.service';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pokedex',
@@ -27,7 +28,8 @@ export class PokedexComponent implements OnInit, OnDestroy {
     private pokemonService: PokemonAPIService,
     private pokedexFirestoreService: PokedexFirestoreService,
     private authService: AuthService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private toastr: ToastrService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -129,7 +131,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
     this.pokedexFirestoreService.deletePokemonForUser(this.userID, pokemon.docId)
       .then(() => {
         console.log(`Pokemon ${pokemon.id} deleted successfully!`);
-        // Optionally update the UI or show a confirmation message
+        this.toastr.success('', 'Pokemon Deleted');
         this.loadFirebasePokemons(); // Reload the Pokemon list after deletion
       })
       .catch((error) => {

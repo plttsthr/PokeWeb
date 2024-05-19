@@ -2,7 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from 'src/app/services/auth.service';
+import { PokemonInfo } from '../../interfaces/pokemonModel';
+import { PokedexFirestoreService } from '../../services/pokedex-firestore.service';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-signup',
@@ -14,14 +18,20 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
   registerUser: FormGroup;
   loginUser: FormGroup;
   isLoggedIn: boolean = false;
+  userID: string | null = null; // Initialize with null
   private authStateSubscription: Subscription | null = null;
+  
+  
 
   constructor(
     private fbs: FormBuilder,
     private afireAuthSignUp: AngularFireAuth,
     private fbl: FormBuilder,
     private afireAuthLogin: AngularFireAuth,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private pokedexFirestoreService: PokedexFirestoreService,
+    private router: Router
   ) {
     this.registerUser = this.fbs.group({
       emailSignUp: ['', [Validators.required, Validators.email]],
@@ -53,18 +63,58 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     const emailToRegister = this.registerUser.value.emailSignUp;
     const passwordToRegister = this.registerUser.value.passwordSignUp;
     const confirmPasswordToRegister = this.registerUser.value.confirmPasswordSignUp;
-
+  
     if (passwordToRegister !== confirmPasswordToRegister) {
-      alert("Passwords don't match.");
+      this.toastr.error('Passwords do not match', 'Error');
     } else {
-      this.afireAuthSignUp.createUserWithEmailAndPassword(emailToRegister, passwordToRegister).then((user) => {
-        console.log(user);
-        alert("User registered successfully.");
-      }).catch((error) => {
-        console.error(error);
-        alert("Error registering user. Please try again.");
-      });
+      // Create user account in Firebase Authentication
+      this.afireAuthSignUp.createUserWithEmailAndPassword(emailToRegister, passwordToRegister)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+          this.toastr.success('User registered successfully', 'Hello');
+  
+          // Add default Pokémon to Firebase
+          const defaultPokemon: PokemonInfo = {
+            id: '25',  // Example Pokémon ID
+            name: 'pikachu',  // Example Pokémon name
+          };
+
+          if (!user) {
+            this.toastr.warning('Please log in', 'Try Again');
+            return;
+          }
+
+          this.addDefaultPokemonToPokedex(user.uid, defaultPokemon);  // Add default Pokémon
+          // Short delay
+          setTimeout(() => {
+            this.refreshPage();
+            // this.router.navigate(['/']);
+          }, 1000); // 1000 milliseconds = 1 second
+  
+
+        })
+        .catch((error) => {
+          console.error(error);
+          this.toastr.error('Error signing up. Please try again', 'Error');
+        });
     }
+  }
+  
+  addDefaultPokemonToPokedex(userId: string, pokemonInfo: PokemonInfo): void {
+    // Add the default Pokémon to Firebase Firestore
+    this.pokedexFirestoreService.addPokemonForUser(userId, pokemonInfo)
+      .then(() => {
+        console.log('Default Pokémon added to Pokédex');
+      })
+      .catch(error => {
+        console.error('Error adding default Pokémon to Pokédex:', error);
+        this.toastr.error('Error adding default Pokémon', 'Error');
+      });
+  }
+
+  async loadUserID(): Promise<void> {
+    this.userID = await this.authService.getCurrentUserId();
   }
 
   Login() {
@@ -73,10 +123,17 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
 
     this.afireAuthLogin.signInWithEmailAndPassword(emailToLogin, passwordToLogin).then((user) => {
       console.log(user);
-      alert("Login successful.");
+      // Refresh the page after a short delay
+      setTimeout(() => {
+        this.refreshPage();
+        this.router.navigate(['/']);
+      }, 1000); // 1500 milliseconds = 1.5 second
+
+      this.toastr.success('', 'Welcome');
+
     }).catch((error) => {
       console.error(error);
-      alert("Error logging in. Please try again.");
+      this.toastr.error('Error logging in. Please try again', 'Error');
     });
   }
 
@@ -84,9 +141,23 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     try {
       await this.authService.logout();
       this.isLoggedIn = false;
-      alert('Logged out successfully.');
+      
+      // Refresh the page after a short delay
+      setTimeout(() => {
+        this.refreshPage();
+        this.router.navigate(['/']);
+      }, 1000); // 1000 milliseconds = 1 second
+
+      this.toastr.success('', 'See you soon');
+      
     } catch (error) {
       console.error('Error logging out:', error);
+      this.toastr.success('Error loggin out', 'Error');
     }
+  }
+
+  private refreshPage(): void {
+    window.location.reload();
+
   }
 }

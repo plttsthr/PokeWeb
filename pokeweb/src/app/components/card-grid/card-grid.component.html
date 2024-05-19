@@ -8,8 +8,8 @@
       <h4 *ngIf="pokemonData">{{pokemonData.name | titlecase}}</h4>
       
       <button *ngIf="pokemonData" class="btn-pokedex position-relative" (click)="addToPokedex({ id: pokemonId, name: pokemonData.name })">
-        <img src="../../../assets/pokeball-gif.gif" alt="Pokeball" class="pokeball-image-gif-pokedex position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);">
-        <span class="mx-2">Add to Pokedex</span>
+        <img src="assets/pokeball-gif.gif" alt="Pokeball" class="pokeball-image-gif-pokedex position-absolute" style="left: -30px; top: 50%; transform: translateY(-50%);">
+        <span class="mx-2">Add to Pokédex</span>
         <!-- <img src="../../../assets/pokeball-gif.gif" alt="Pokeball" class="pokeball-image-gif-pokedex position-absolute" style="right: -30px; top: 50%; transform: translateY(-50%);"> -->
       </button>
       
