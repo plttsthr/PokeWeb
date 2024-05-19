@@ -5,9 +5,15 @@
       type="search" 
       [(ngModel)]="searchQuery" 
       [ngModelOptions]="{ standalone: true }" 
-      placeholder="Search by Name ..." 
+      placeholder="Search" 
       aria-label="Search"
-      (keyup)="onSearchInputChange()">
-    <button class="btn-search" type="submit">Search</button>
+      (keyup)="onSearchInputChange()"
+      style="width: 60%;">
+            
+      <button class="btn btn-search" type="submit"><img 
+        src="assets/glass.png" 
+        alt="Search" 
+        (click)="onSubmit()" 
+        class="img-search"></button>
   </form>
 </div>

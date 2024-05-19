@@ -125,6 +125,7 @@ h1{
 
 .btn-search{
   background-color: #ffffff;
+  border: 2px solid #000;
 }
 
 .btn-search:hover{
@@ -205,6 +206,9 @@ body {
   z-index: 1051;
 }
 
+button{
+  color: #000;
+}
 .auth-buttons button{
   margin-right: 10px;
 }
@@ -214,13 +218,33 @@ body {
   margin-left: 8px;
 }
 
+.span{
+  color: #000;
+}
+
 .pokeball-img-navbar{
-  width: 35px; /* Adjust the size as needed */
-  margin-left: 8px; /* Adjust the spacing between the image and the text */
+  width: 35px;
+  margin-left: 8px;
+}
+
+.img-search {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  right: 10px; /* Adjust as needed to position inside the input */
 
 }
+
+.position-relative {
+  position: relative;
+}
+
+.form-control {
+  padding-right: 10px; /* Adjust as needed to make room for the image */
+}
+
 .card-container {
-    border: 2px solid #000000; /* Border style */
+    border: 2px solid #000000;
     background-color: #d0d8d6;
 }
 

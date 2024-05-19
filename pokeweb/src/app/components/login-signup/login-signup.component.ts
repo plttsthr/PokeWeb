@@ -6,7 +6,6 @@ import { PokemonInfo } from '../../interfaces/pokemonModel';
 import { PokedexFirestoreService } from '../../services/pokedex-firestore.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-signup',
@@ -31,7 +30,6 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private toastr: ToastrService,
     private pokedexFirestoreService: PokedexFirestoreService,
-    private router: Router
   ) {
     this.registerUser = this.fbs.group({
       emailSignUp: ['', [Validators.required, Validators.email]],
@@ -79,27 +77,46 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
             id: '25',  // Example Pokémon ID
             name: 'pikachu',  // Example Pokémon name
           };
-
+  
           if (!user) {
             this.toastr.warning('Please log in', 'Try Again');
             return;
           }
-
           this.addDefaultPokemonToPokedex(user.uid, defaultPokemon);  // Add default Pokémon
+  
           // Short delay
           setTimeout(() => {
             this.refreshPage();
-            // this.router.navigate(['/']);
           }, 1000); // 1000 milliseconds = 1 second
-  
-
         })
         .catch((error) => {
           console.error(error);
-          this.toastr.error('Error signing up. Please try again', 'Error');
+          this.handleError(error);
         });
     }
   }
+  
+  handleError(error: any) {
+    // Handle Firebase Authentication errors
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        this.toastr.error('The email address is already in use by another account.', 'Error');
+        break;
+      case 'auth/invalid-email':
+        this.toastr.error('The email address is not valid.', 'Error');
+        break;
+      case 'auth/operation-not-allowed':
+        this.toastr.error('Email/password accounts are not enabled.', 'Error');
+        break;
+      case 'auth/weak-password':
+        this.toastr.error('The password is too weak.', 'Error');
+        break;
+      default:
+        this.toastr.error('Error signing up. Please try again', 'Error');
+        break;
+    }
+  }
+  
   
   addDefaultPokemonToPokedex(userId: string, pokemonInfo: PokemonInfo): void {
     // Add the default Pokémon to Firebase Firestore
@@ -126,7 +143,6 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
       // Refresh the page after a short delay
       setTimeout(() => {
         this.refreshPage();
-        this.router.navigate(['/']);
       }, 1000); // 1500 milliseconds = 1.5 second
 
       this.toastr.success('', 'Welcome');
@@ -145,7 +161,6 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
       // Refresh the page after a short delay
       setTimeout(() => {
         this.refreshPage();
-        this.router.navigate(['/']);
       }, 1000); // 1000 milliseconds = 1 second
 
       this.toastr.success('', 'See you soon');
