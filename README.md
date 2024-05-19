@@ -98,9 +98,9 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 - Navigate to http://localhost:4200/.
 
 
-## Project is Live at
+## Project Live
 
-- https://plttsthr.github.io/PokeWebLive/
+- PokeWeb Live: https://plttsthr.github.io/PokeWebLive/
 
 ![PokeList](images/pokelist.png)
 
