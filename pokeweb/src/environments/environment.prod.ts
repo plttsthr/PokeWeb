@@ -1,15 +1,14 @@
 import { defaultEnvironment } from "./environment.default";
 
 export const environment = {
-    production: true,
-
-    firebaseConfig : {
-        apiKey: "AIzaSyAP9V2EeKxdNT_2kAyymGNP5nR_tFEEPoM",
-        authDomain: "pokeweb-hatch.firebaseapp.com",
-        projectId: "pokeweb-hatch",
-        storageBucket: "pokeweb-hatch.appspot.com",
-        messagingSenderId: "292561553214",
-        appId: "1:292561553214:web:a47a940c306c4373628e6f",
-        measurementId: "G-JEFDH84DH0"
-      }
+  production: false,
+  firebaseConfig: {
+    apiKey: 'YOUR_API_KEY',
+    authDomain: 'YOUR_AUTH_DOMAIN',
+    projectId: 'YOUR_PROJECT_ID',
+    storageBucket: 'YOUR_STORAGE_BUCKET',
+    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+    appId: 'YOUR_APP_ID',
+    measurementId: 'YOUR_MEASUREMENT_ID'
+  }
 };
