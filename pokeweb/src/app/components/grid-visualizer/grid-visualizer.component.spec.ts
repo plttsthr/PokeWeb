@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { GridVisualizerComponent } from './grid-visualizer.component';
 
 describe('GridVisualizerComponent', () => {

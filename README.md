@@ -5,12 +5,11 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 ## Features
 
 
-
 1. PokéList:
 
     - Display the list of 500 Pokémon with their name, id and sprite.
 
-![Profile Picture](images/pokelist.png)
+![PokeList](images/pokelist.png)
 
 2. Add Pokémon to Pokédex:
 
@@ -99,6 +98,19 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 
 - Navigate to http://localhost:4200/.
 
+
+## Project is Live at
+
+- https://plttsthr.github.io/PokeWebLive/
+
+![PokeList](images/pokelist.png)
+
+## Testing
+
+- **Tests have been written to cover the functionality of the components. These tests are preliminary and subject to modification based on ongoing development and changes in requirements.**
+
+```
+    ng test
 
 
  

@@ -1,48 +1,61 @@
+// Import Injectable decorator from Angular core
 import { Injectable } from '@angular/core';
+// Import necessary interfaces for type annotations
 import { Data, resultArray } from '../interfaces/pokemonAPI';
 import { Pokemon } from '../interfaces/pokemonModel';
 
-
+// Injectable decorator to make this service available for dependency injection
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Specifies that this service is provided at the root level
 })
 export class PokemonAPIService {
 
+  // Constructor method
   constructor()  {}
 
-  async getByPage():Promise<resultArray[]>{
+  // Fetch a list of Pokémon with pagination
+  async getByPage(): Promise<resultArray[]> {
+    // Fetch data from the Pokémon API with a limit of 500 Pokémon
     const result = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=500&offset=0");
     const resultJson = await result.json();
 
-    if(resultJson.results.length > 0) return resultJson.results
+    // Check if results are returned and return them, otherwise return an empty array
+    if (resultJson.results.length > 0) return resultJson.results;
     return [];
   }
 
+  // Fetch detailed Pokémon data by ID
   async getById(id: string | number): Promise<Pokemon> {
-    const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    // Fetch data from the Pokémon API for a specific Pokémon by ID
+    const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const resultJson = await result.json();
 
+    // Return the detailed Pokémon data
     return resultJson;
   }
-  
+
+  // Search for a Pokémon by name or ID
   async searchPokemon(query: string): Promise<resultArray[]> {
-    const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
+    // Fetch data from the Pokémon API for a specific Pokémon by name or ID
+    const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
     const resultJson = await result.json();
 
+    // Return the search results
     return resultJson.results;
   }
 
+  // Fetch Pokémon description by ID
   async getPokemonDescription(id: string | number): Promise<string> {
     try {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-        const resultJson = await res.json();
-        // Extract the description from the resultJson and return it
-        return resultJson.flavor_text_entries.find((entry: any) => entry.language.name === "en").flavor_text;
+      // Fetch species data from the Pokémon API for a specific Pokémon by ID
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+      const resultJson = await res.json();
+      
+      // Extract and return the English flavor text description
+      return resultJson.flavor_text_entries.find((entry: any) => entry.language.name === "en").flavor_text;
     } catch (error) {
-        console.error(`Error fetching description for Pokémon with ID ${id}:`, error);
-        return ''; // Return an empty string on error
+      console.error(`Error fetching description for Pokémon with ID ${id}:`, error);
+      return ''; // Return an empty string on error
     }
+  }
 }
-
-}
-

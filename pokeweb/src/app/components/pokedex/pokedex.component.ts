@@ -1,10 +1,15 @@
+// Angular core imports for component lifecycle management
 import { Component, OnInit, OnDestroy } from '@angular/core';
+// Custom services for API interaction, Firestore operations, authentication, and search functionality
 import { PokemonAPIService } from '../../services/pokemon-api.service';
 import { PokedexFirestoreService } from '../../services/pokedex-firestore.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { PokemonInfo } from '../../interfaces/pokemonModel';
 import { SearchService } from '../../services/search-bar.service';
+// Interface for Pokémon data models
+import { PokemonInfo } from '../../interfaces/pokemonModel';
+// RxJS subscription for managing observable subscriptions
 import { Subscription } from 'rxjs';
+// Service for displaying toast notifications
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -13,17 +18,24 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./pokedex.component.css']
 })
 export class PokedexComponent implements OnInit, OnDestroy {
-
+  
+  // Arrays to store Pokémon data
   firebasePokemons: (PokemonInfo & { docId?: string })[] = [];
   pokemonWithSprites: (PokemonInfo & { docId?: string; spriteUrl?: string })[] = [];
+  // Selected Pokémon details
   selectedPokemon: PokemonInfo | undefined;
   selectedPokemonDetails: { height: number; weight: number; types: string[] } = { height: 0, weight: 0, types: [] };
   selectedPokemonDescription: string = '';
-  userID: string | null = null; // Initialize with null
+  // Current user ID
+  userID: string | null = null;
+  // Filtered list of Pokémon based on search query
   filteredPokemonList: (PokemonInfo & { docId?: string; spriteUrl?: string })[] = [];
+  // Subscription to search query changes
   private searchSubscription: Subscription | undefined;
-  loading: boolean = true; // Add a loading state variable
+  // Loading state
+  loading: boolean = true;
 
+  // Constructor to inject necessary services
   constructor(
     private pokemonService: PokemonAPIService,
     private pokedexFirestoreService: PokedexFirestoreService,
@@ -32,20 +44,23 @@ export class PokedexComponent implements OnInit, OnDestroy {
     private toastr: ToastrService
   ) {}
 
+  // Lifecycle hook to perform initialization logic
   async ngOnInit(): Promise<void> {
     await this.loadUserID();
     if (this.userID) {
       await this.loadFirebasePokemons();
       await this.loadSpritesForPokemons();
       this.filteredPokemonList = [...this.pokemonWithSprites];
-      this.loading = false; // Set loading to false after data is loaded
+      this.loading = false;
 
+      // Subscribe to search query changes
       this.searchSubscription = this.searchService.query.subscribe(query => {
         this.filterPokemonList(query);
       });
     }
   }
 
+  // Lifecycle hook to clean up subscriptions
   ngOnDestroy(): void {
     // Unsubscribe from search query when component is destroyed
     if (this.searchSubscription) {
@@ -53,10 +68,12 @@ export class PokedexComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Method to load the current user ID
   async loadUserID(): Promise<void> {
     this.userID = await this.authService.getCurrentUserId();
   }
 
+  // Method to load Pokémon from Firestore
   loadFirebasePokemons(): void {
     this.pokedexFirestoreService.getAllPokemonForUser(this.userID!).subscribe(async (pokemonsFire: (PokemonInfo & { docId?: string })[]) => {
       this.firebasePokemons = pokemonsFire;
@@ -68,21 +85,21 @@ export class PokedexComponent implements OnInit, OnDestroy {
       if (this.filteredPokemonList.length > 0) {
         this.selectPokemon(this.filteredPokemonList[0]);
       }
-
     });
   }
 
+  // Method to load sprites for the Pokémon
   async loadSpritesForPokemons(): Promise<void> {
     this.pokemonWithSprites = []; // Clear existing data
 
     for (let i = 0; i < this.firebasePokemons.length; i++) {
       const pokemon = this.firebasePokemons[i];
-
       const spriteUrl = await this.getSpriteUrl(pokemon.id);
       this.pokemonWithSprites.push({ ...pokemon, spriteUrl });
     }
   }
 
+  // Method to get the sprite URL for a Pokémon by its ID
   async getSpriteUrl(id: string): Promise<string | undefined> {
     try {
       const fullPokemonData = await this.pokemonService.getById(id);
@@ -93,12 +110,14 @@ export class PokedexComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Method to select a Pokémon and load its details and description
   selectPokemon(pokemon: PokemonInfo & { id: string }): void {
     this.selectedPokemon = pokemon;
     this.loadPokemonDetails(pokemon);
     this.loadPokemonDescription(pokemon);
   }
 
+  // Method to load details for a selected Pokémon
   async loadPokemonDetails(pokemon: PokemonInfo & { id: string }): Promise<void> {
     try {
       const fullPokemonData = await this.pokemonService.getById(pokemon.id);
@@ -112,6 +131,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Method to load the description for a selected Pokémon
   async loadPokemonDescription(pokemon: PokemonInfo & { id: string }): Promise<void> {
     try {
       this.selectedPokemonDescription = await this.pokemonService.getPokemonDescription(pokemon.id);
@@ -120,6 +140,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Method to delete a Pokémon from Firestore
   deletePokemon(event: Event, pokemon: PokemonInfo & { docId?: string }): void {
     event.stopPropagation(); // Prevent event bubbling up to the card body
 
@@ -132,7 +153,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
       .then(() => {
         console.log(`Pokemon ${pokemon.id} deleted successfully!`);
         this.toastr.success('', 'Pokemon Deleted');
-        this.loadFirebasePokemons(); // Reload the Pokemon list after deletion
+        this.loadFirebasePokemons(); // Reload the Pokémon list after deletion
       })
       .catch((error) => {
         console.error(`Error deleting Pokemon ${pokemon.name}:`, error);
@@ -140,6 +161,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
       });
   }
 
+  // Method to filter the Pokémon list based on a search query
   filterPokemonList(query: string): void {
     if (!query.trim()) {
       this.filteredPokemonList = [...this.pokemonWithSprites]; // If query is empty, show full list
@@ -152,7 +174,8 @@ export class PokedexComponent implements OnInit, OnDestroy {
     if (this.filteredPokemonList.length > 0) {
       this.selectPokemon(this.filteredPokemonList[0]);
     } else {
-      this.selectedPokemon = undefined; // Clear the selection if no Pokémon matches the search query
+      // Clear the selection if no Pokémon matches the search query
+      this.selectedPokemon = undefined;
       this.selectedPokemonDetails = { height: 0, weight: 0, types: [] };
       this.selectedPokemonDescription = '';
     }
