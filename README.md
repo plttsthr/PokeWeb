@@ -103,5 +103,5 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 
     - See all Pokémons in your personal Pokédex.
     - Search for Pokémon within your personal Pokédex.
-    - View details such as name, ID, sprite, height, weight, type, and description.
+    - View details such as name, ID, sprite, height, weight, type, and description. 
  
