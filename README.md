@@ -8,18 +8,11 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 1. PokéList:
 
     - Display the list of 500 Pokémon with their name, id and sprite.
-
-
-2. Add Pokémon to Pokédex:
-
+    - Use the search bar to find a specific Pokémon by name.
     - Log in to add Pokémon to your personal Pokédex.
     - New users start with Pikachu in their Pokédex by default.
 
-3. Search Pokémon in PokéList:
-
-    - Use the search bar to find a specific Pokémon by name.
-
-4. Pokédex:
+2. Pokédex:
 
     - See all Pokémons in your personal Pokédex.
     - Search for Pokémon within your personal Pokédex.
