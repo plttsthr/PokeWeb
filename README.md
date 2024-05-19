@@ -1,16 +1,16 @@
-# PokeWeb App
+# PokeWeb App ✨
 
 PokeWeb is a web application built with Angular 17 that allows users to browse and manage a list of Pokémon. Users can add Pokémon to their personal Pokédex, which is stored in Firebase. This app utilizes the Pokémon API to display detailed information about each Pokémon, including name, ID, sprite, height, weight, type, and a short description.
 
 ## Features
 
-- **List of Pokémon:** Displays a list of 500 Pokémon with their basic information.
+- **PokeList:** Displays a list of 500 Pokémon with their name, id and sprite.
 - **Add to Pokédex:** Logged-in users can add Pokémon to their personal Pokédex.
-- **Search Pokémon:** Users can search for a Pokémon using the search bar.
+- **Search Pokémon by name:** Users can search for a Pokémon using the search bar.
 - **Authentication:** Only logged-in users can add Pokémon to their Pokédex.
 - **Sign Up and Login:** New users can sign up for an account, and existing users can log in.
 - **Default Pokémon:** New users' Pokédex starts with a default Pokémon: Pikachu.
-- **Search in Pokédex:** Users can search for Pokémon within their personal Pokédex.
+- **Search in Pokédex by name:** Users can search for Pokémon within their personal Pokédex.
 - **Mobile Responsive:** The application is fully responsive and optimized for mobile devices.
 
 ## Technologies Used
@@ -31,8 +31,9 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 
 1. Clone the repository.
    ```bash
-   git clone https://github.com/yourusername/pokeweb.git
+   git clone https://github.com/plttsthr/PokeWeb.git
    cd pokeweb
+   
 
 2. Install dependencies.
    ```bash
