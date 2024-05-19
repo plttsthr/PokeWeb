@@ -4,13 +4,13 @@
     <!-- Left column for Pokémon names and IDs -->
     <div class="col-lg-5 col-md-12 mt-1">
       <div class="card m-2 overflow-auto card-pokedex" style="max-height: 80vh;">
-        <div *ngIf="!userID" class="loading-message p-3 align-items-center">
-          <h1>Login to see your Pokédex</h1>
-        </div>
-        <div *ngIf="userID && loading" class="loading-message p-3 align-items-center">
+        <div *ngIf="loading" class="loading-message p-3 align-items-center">
           <h1>Loading Pokémon list...</h1>
         </div>
-        <div *ngIf="!loading && filteredPokemonList.length === 0" class="no-results p-3 align-items-center">
+        <div *ngIf="!loading && !userID && firebasePokemons.length === 0" class="loading-message p-3 align-items-center">
+          <h1>Login to see your Pokédex</h1>
+        </div>
+        <div *ngIf="!loading && userID && filteredPokemonList.length === 0 && firebasePokemons.length != 0" class="no-results p-3 align-items-center">
           <h1>Pokémon not found!!</h1>
         </div>
         <div *ngFor="let pokemon of filteredPokemonList">

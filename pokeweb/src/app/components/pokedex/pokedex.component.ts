@@ -32,6 +32,8 @@ export class PokedexComponent implements OnInit, OnDestroy {
   filteredPokemonList: (PokemonInfo & { docId?: string; spriteUrl?: string })[] = [];
   // Subscription to search query changes
   private searchSubscription: Subscription | undefined;
+  // Subscription to getAuthstate
+  private authSubscription: Subscription | undefined;
   // Loading state
   loading: boolean = true;
 
@@ -45,26 +47,34 @@ export class PokedexComponent implements OnInit, OnDestroy {
   ) {}
 
   // Lifecycle hook to perform initialization logic
-  async ngOnInit(): Promise<void> {
-    await this.loadUserID();
-    if (this.userID) {
-      await this.loadFirebasePokemons();
-      await this.loadSpritesForPokemons();
-      this.filteredPokemonList = [...this.pokemonWithSprites];
-      this.loading = false;
+  ngOnInit(): void {
+    // Subscribe to the auth state observable
+    this.authSubscription = this.authService.getAuthState().subscribe(async (user) => {
+      this.loading = true;
+      if (user) {
+        this.userID = user.uid;
+        await this.loadFirebasePokemons();
+        this.filteredPokemonList = [...this.pokemonWithSprites];
+        this.loading = false;
 
-      // Subscribe to search query changes
-      this.searchSubscription = this.searchService.query.subscribe(query => {
-        this.filterPokemonList(query);
-      });
-    }
+        // Subscribe to search query changes
+        this.searchSubscription = this.searchService.query.subscribe(query => {
+          this.filterPokemonList(query);
+        });
+      } else {
+        this.userID = null;
+        this.loading = false;
+      }
+    });
   }
 
   // Lifecycle hook to clean up subscriptions
   ngOnDestroy(): void {
-    // Unsubscribe from search query when component is destroyed
     if (this.searchSubscription) {
       this.searchSubscription.unsubscribe();
+    }
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
     }
   }
 
@@ -74,19 +84,31 @@ export class PokedexComponent implements OnInit, OnDestroy {
   }
 
   // Method to load Pokémon from Firestore
-  loadFirebasePokemons(): void {
-    this.pokedexFirestoreService.getAllPokemonForUser(this.userID!).subscribe(async (pokemonsFire: (PokemonInfo & { docId?: string })[]) => {
-      this.firebasePokemons = pokemonsFire;
-      await this.loadSpritesForPokemons();
-      this.filteredPokemonList = [...this.pokemonWithSprites];
-      this.loading = false; // Set loading to false after data is loaded
+loadFirebasePokemons(): void {
+  this.loading = true;
+  this.pokedexFirestoreService.getAllPokemonForUser(this.userID!).subscribe({
+    next: async (pokemonsFire: (PokemonInfo & { docId?: string })[]) => {
+      try {
+        this.firebasePokemons = pokemonsFire;
+        await this.loadSpritesForPokemons();
+        this.filteredPokemonList = [...this.pokemonWithSprites];
+        this.loading = false; // Set loading to false after data is loaded
 
-      // Select the first Pokémon after loading
-      if (this.filteredPokemonList.length > 0) {
-        this.selectPokemon(this.filteredPokemonList[0]);
+        // Select the first Pokémon after loading
+        if (this.filteredPokemonList.length > 0) {
+          this.selectPokemon(this.filteredPokemonList[0]);
+        }
+      } catch (error) {
+        console.error('Error loading sprites for Pokémon:', error);
+        this.loading = false;
       }
-    });
-  }
+    },
+    error: (error) => {
+      console.error('Error loading Pokémon from Firestore:', error);
+      this.loading = false;
+    }
+  });
+}
 
   // Method to load sprites for the Pokémon
   async loadSpritesForPokemons(): Promise<void> {
