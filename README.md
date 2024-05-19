@@ -4,17 +4,28 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 
 ## Features
 
-- **PokeList:** Displays a list of 500 Pokémon with their name, id and sprite.
 
-(images/pokelist.png)
 
-- **Add to Pokédex:** Logged-in users can add Pokémon to their personal Pokédex.
-- **Search Pokémon by name:** Users can search for a Pokémon using the search bar.
-- **Authentication:** Only logged-in users can add Pokémon to their Pokédex.
-- **Sign Up and Login:** New users can sign up for an account, and existing users can log in.
-- **Default Pokémon:** New users' Pokédex starts with a default Pokémon: Pikachu.
-- **Search in Pokédex by name:** Users can search for Pokémon within their personal Pokédex.
-- **Mobile Responsive:** The application is fully responsive and optimized for mobile devices.
+1. PokéList:
+
+    - Explore the list of 500 Pokémon with their name, id and sprite.
+
+![Profile Picture](images/pokelist.png)
+
+2. Add Pokémon to Pokédex:
+
+    - Log in to add Pokémon to your personal Pokédex.
+    - New users start with Pikachu in their Pokédex by default.
+
+3. Search Pokémon in PokéList:
+
+    - Use the search bar to find a specific Pokémon by name.
+
+4. Pokédex:
+
+    - See all Pokémons in your personal Pokédex.
+    - Search for Pokémon within your personal Pokédex.
+    - View details such as name, ID, sprite, height, weight, type, and description. 
 
 ## Technologies Used
 
@@ -88,24 +99,6 @@ PokeWeb is a web application built with Angular 17 that allows users to browse a
 
 - Navigate to http://localhost:4200/.
 
-## Usage
 
-1. PokéList:
 
-    - Explore the list of 500 Pokémon.
-
-2. Add Pokémon to Pokédex:
-
-    - Log in to add Pokémon to your personal Pokédex.
-    - New users start with Pikachu in their Pokédex by default.
-
-3. Search Pokémon in PokéList:
-
-    - Use the search bar to find a specific Pokémon by name.
-
-4. Pokédex:
-
-    - See all Pokémons in your personal Pokédex.
-    - Search for Pokémon within your personal Pokédex.
-    - View details such as name, ID, sprite, height, weight, type, and description. 
  
